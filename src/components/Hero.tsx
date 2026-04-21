@@ -145,7 +145,7 @@ export default function Hero() {
             </div>
             {["LangChain", "React", "AWS", "Python", "Docker"].map((tech, i) => {
               const angle = (i / 5) * Math.PI * 2 - Math.PI / 2;
-              const radius = 120;
+              const radius = 105;
               const x = Math.cos(angle) * radius;
               const y = Math.sin(angle) * radius;
               return (
