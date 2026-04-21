@@ -143,7 +143,7 @@ export default function Hero() {
                 />
               </div>
             </div>
-            {["LangChain", "React", "AWS", "Python", "Docker"].map((tech, i) => {
+            {["LangGraph", "Next.js", "MCP", "Python", "AWS"].map((tech, i) => {
               const angle = (i / 5) * Math.PI * 2 - Math.PI / 2;
               const radius = 105;
               const x = Math.cos(angle) * radius;
