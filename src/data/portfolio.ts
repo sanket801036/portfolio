@@ -34,7 +34,7 @@ export const skillGroups = [
       "Gemini 2.5",
       "LangGraph",
       "LangChain",
-      "CrewAI",
+      "AutoGen (Microsoft)",
       "DSPy",
       "MCP (Model Context Protocol)",
       "Anthropic Agent SDK",
