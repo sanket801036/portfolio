@@ -136,20 +136,26 @@ export default function Hero() {
             <div className="absolute inset-6 rounded-full border border-white/10 animate-spin-slow" style={{ animationDirection: "reverse" }} />
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="relative w-48 h-48 md:w-60 md:h-60 rounded-full bg-gradient-to-br from-accent-violet via-accent-pink to-accent-cyan p-1 shadow-glow animate-float">
-                <div className="w-full h-full rounded-full bg-bg-soft flex items-center justify-center text-6xl md:text-7xl font-extrabold">
-                  <span className="gradient-text">SK</span>
-                </div>
+                <img
+                  src="https://avatars.githubusercontent.com/sanket801036"
+                  alt="Sanket Kolhe"
+                  className="w-full h-full rounded-full object-cover"
+                />
               </div>
             </div>
             {["LangChain", "React", "AWS", "Python", "Docker"].map((tech, i) => {
-              const angle = (i / 5) * Math.PI * 2;
-              const radius = 130;
+              const angle = (i / 5) * Math.PI * 2 - Math.PI / 2;
+              const radius = 120;
+              const x = Math.cos(angle) * radius;
+              const y = Math.sin(angle) * radius;
               return (
                 <div
                   key={tech}
-                  className="absolute top-1/2 left-1/2"
+                  className="absolute"
                   style={{
-                    transform: `translate(-50%, -50%) rotate(${angle}rad) translateY(-${radius}px) rotate(${-angle}rad)`,
+                    left: "50%",
+                    top: "50%",
+                    transform: `translate(calc(${x}px - 50%), calc(${y}px - 50%))`,
                   }}
                 >
                   <motion.div
