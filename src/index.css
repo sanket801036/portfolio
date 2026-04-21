@@ -66,8 +66,8 @@ body {
   }
   .chip {
     @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold
-           bg-slate-900/90 border border-accent-cyan/50 text-accent-cyan
-           hover:border-accent-violet hover:text-white transition-all backdrop-blur-sm;
+           bg-slate-800 border border-cyan-400/60 text-cyan-300
+           hover:border-violet-400 hover:bg-slate-700 hover:text-white transition-all;
   }
   .section-title {
     @apply text-3xl md:text-5xl font-bold tracking-tight;
