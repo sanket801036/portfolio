@@ -143,19 +143,23 @@ export default function Hero() {
             </div>
             {["LangChain", "React", "AWS", "Python", "Docker"].map((tech, i) => {
               const angle = (i / 5) * Math.PI * 2;
-              const radius = 160;
+              const radius = 130;
               return (
-                <motion.div
+                <div
                   key={tech}
-                  className="absolute top-1/2 left-1/2 chip !text-[10px] shadow-lg"
+                  className="absolute top-1/2 left-1/2"
                   style={{
                     transform: `translate(-50%, -50%) rotate(${angle}rad) translateY(-${radius}px) rotate(${-angle}rad)`,
                   }}
-                  animate={{ y: [0, -6, 0] }}
-                  transition={{ duration: 3 + i * 0.3, repeat: Infinity, ease: "easeInOut" }}
                 >
-                  {tech}
-                </motion.div>
+                  <motion.div
+                    className="chip !text-[10px] shadow-lg"
+                    animate={{ y: [0, -6, 0] }}
+                    transition={{ duration: 3 + i * 0.3, repeat: Infinity, ease: "easeInOut" }}
+                  >
+                    {tech}
+                  </motion.div>
+                </div>
               );
             })}
           </div>
