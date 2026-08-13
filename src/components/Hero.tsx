@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowDown, Download, Mail, Sparkles } from "lucide-react";
+import { WhatsAppIcon } from "./SocialIcons";
 import { profile, stats } from "../data/portfolio";
 
 function useTypewriter(words: string[], speed = 80, pause = 1500) {
@@ -100,6 +101,14 @@ export default function Hero() {
               className="inline-flex items-center gap-2 px-5 py-3 rounded-xl glass hover:bg-white/10 text-slate-200 font-semibold transition-colors"
             >
               <Mail size={16} /> Get in touch
+            </a>
+            <a
+              href={`https://wa.me/${profile.phone.replace(/\D/g, "")}?text=${encodeURIComponent("Hi Sanket, I found you through your portfolio.")}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-[#25D366]/90 hover:bg-[#25D366] text-white font-semibold transition-colors"
+            >
+              <WhatsAppIcon size={16} /> WhatsApp
             </a>
             <a
               href={profile.github}

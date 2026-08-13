@@ -1,7 +1,11 @@
 import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
-import { GithubIcon, LinkedinIcon } from "./SocialIcons";
+import { GithubIcon, LinkedinIcon, WhatsAppIcon } from "./SocialIcons";
 import { profile } from "../data/portfolio";
+
+const whatsappHref = `https://wa.me/${profile.phone.replace(/\D/g, "")}?text=${encodeURIComponent(
+  "Hi Sanket, I found you through your portfolio."
+)}`;
 
 const channels = [
   {
@@ -10,6 +14,7 @@ const channels = [
     value: profile.email,
     href: `https://mail.google.com/mail/?view=cm&fs=1&to=${profile.email}`,
   },
+  { icon: WhatsAppIcon, label: "WhatsApp", value: profile.phone, href: whatsappHref },
   { icon: Phone, label: "Phone", value: profile.phone, href: `tel:${profile.phone}` },
   { icon: GithubIcon, label: "GitHub", value: "Sanket-Kolhe", href: profile.github },
   { icon: LinkedinIcon, label: "LinkedIn", value: "sanket-kolhe", href: profile.linkedin },
@@ -39,16 +44,28 @@ export default function Contact() {
               Open to freelance, full-time and consulting roles in AI + full-stack engineering.
             </p>
 
-            <motion.a
-              href={`https://mail.google.com/mail/?view=cm&fs=1&to=${profile.email}&su=${encodeURIComponent("Project inquiry — via portfolio")}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.98 }}
-              className="inline-flex items-center gap-2 mt-8 px-6 py-3 rounded-xl bg-gradient-to-r from-accent-cyan via-accent-violet to-accent-pink text-white font-semibold shadow-glow hover:shadow-glow-cyan transition-shadow"
-            >
-              <Send size={16} /> Send me a message
-            </motion.a>
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+              <motion.a
+                href={`https://mail.google.com/mail/?view=cm&fs=1&to=${profile.email}&su=${encodeURIComponent("Project inquiry — via portfolio")}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.98 }}
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-accent-cyan via-accent-violet to-accent-pink text-white font-semibold shadow-glow hover:shadow-glow-cyan transition-shadow"
+              >
+                <Send size={16} /> Send me a message
+              </motion.a>
+              <motion.a
+                href={whatsappHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.98 }}
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#25D366] text-white font-semibold shadow-glow hover:brightness-110 transition-all"
+              >
+                <WhatsAppIcon size={16} /> WhatsApp Me
+              </motion.a>
+            </div>
 
             <div className="mt-12 grid sm:grid-cols-2 gap-4 text-left">
               {channels.map((c, i) => (
