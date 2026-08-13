@@ -16,7 +16,7 @@ const channels = [
   },
   { icon: WhatsAppIcon, label: "WhatsApp", value: profile.phone, href: whatsappHref },
   { icon: Phone, label: "Phone", value: profile.phone, href: `tel:${profile.phone}` },
-  { icon: GithubIcon, label: "GitHub", value: "Sanket-Kolhe", href: profile.github },
+  { icon: GithubIcon, label: "GitHub", value: "sanket801036", href: profile.github },
   { icon: LinkedinIcon, label: "LinkedIn", value: "sanket-kolhe", href: profile.linkedin },
 ];
 

@@ -11,7 +11,7 @@ export const profile = {
   location: "Surat, Gujarat, India",
   email: "sanketkolhe801036@gmail.com",
   phone: "+91 8010364260",
-  github: "https://github.com/Sanket-Kolhe",
+  github: "https://github.com/sanket801036",
   linkedin: "https://www.linkedin.com/in/sanket-kolhe",
   summary:
     "Python Full-Stack & AI Developer with 3 years of experience designing scalable web applications, AI-powered systems and automation solutions using Django, Flask, FastAPI, React and MySQL. Hands-on with RAG, Computer Vision, OCR, Web Scraping and Generative AI — shipping production-ready software with Docker, Kubernetes, Jenkins, AWS and CI/CD pipelines.",
@@ -174,7 +174,7 @@ export const projects = [
     description:
       "Enterprise studio-workflow system managing end-to-end product photo/video pipeline — Warehouse Challan, Sourcing, Mood Board, Studio Dispatch, QC, Editing and Launch. SKU/barcode-based tracking across departments, batch-wise mood boards, SLA alerts, pending dashboards, PMS/ERP auto-upload, role-based access and mobile QC entry for 1000+ SKUs/month.",
     tags: ["React", "Flask", "MySQL", "Barcode/SKU", "SLA Workflow", "ERP Integration"],
-    link: "https://github.com/Sanket-Kolhe",
+    link: "https://github.com/sanket801036",
     featured: true,
     gradient: "from-accent-pink via-accent-violet to-accent-cyan",
   },
@@ -183,7 +183,7 @@ export const projects = [
     description:
       "Enterprise-grade multi-agent AI platform built with FastAPI, LangChain and LangGraph — containerized with Docker, deployed on AWS ECS via Jenkins CI/CD with SonarQube code-quality gates.",
     tags: ["FastAPI", "LangChain", "LangGraph", "Docker", "Jenkins", "AWS ECS"],
-    link: "https://github.com/Sanket-Kolhe",
+    link: "https://github.com/sanket801036",
     featured: true,
     gradient: "from-accent-violet via-accent-pink to-accent-cyan",
   },
@@ -192,7 +192,7 @@ export const projects = [
     description:
       "Enterprise RAG chatbot serving 100+ users with 99.9% uptime. Dockerized Flask APIs, Trivy-scanned images, AWS App Runner deployment.",
     tags: ["RAG", "Flask", "Docker", "AWS"],
-    link: "https://github.com/Sanket-Kolhe",
+    link: "https://github.com/sanket801036",
     featured: true,
     gradient: "from-accent-cyan via-accent-violet to-accent-pink",
   },
@@ -201,7 +201,7 @@ export const projects = [
     description:
       "Real-time smart lock built with YOLOv8 for detection and InsightFace for recognition. Automated face-based access and user tracking.",
     tags: ["YOLOv8", "InsightFace", "Computer Vision"],
-    link: "https://github.com/Sanket-Kolhe",
+    link: "https://github.com/sanket801036",
     featured: false,
     gradient: "from-accent-lime via-accent-cyan to-accent-violet",
   },
@@ -210,7 +210,7 @@ export const projects = [
     description:
       "PaddleOCR + fine-tuned LayoutLMv3 pipeline that extracts structured menu data from restaurant images at 95%+ accuracy.",
     tags: ["PaddleOCR", "LayoutLMv3", "FastAPI"],
-    link: "https://github.com/Sanket-Kolhe",
+    link: "https://github.com/sanket801036",
     featured: false,
     gradient: "from-accent-pink via-accent-violet to-accent-cyan",
   },
@@ -219,7 +219,7 @@ export const projects = [
     description:
       "Image-based Retrieval-Augmented Generation using CV embeddings + vector DB for fast visual product matching in fashion e-commerce.",
     tags: ["Vector DB", "Embeddings", "RAG"],
-    link: "https://github.com/Sanket-Kolhe",
+    link: "https://github.com/sanket801036",
     featured: false,
     gradient: "from-accent-violet via-accent-cyan to-accent-lime",
   },
@@ -228,7 +228,7 @@ export const projects = [
     description:
       "React Native (Expo Go) mobile app for fabric dispatch & verification. Integrated REST APIs, improved dispatch visibility for internal ops.",
     tags: ["React Native", "Expo", "REST API"],
-    link: "https://github.com/Sanket-Kolhe",
+    link: "https://github.com/sanket801036",
     featured: false,
     gradient: "from-accent-cyan via-accent-pink to-accent-violet",
   },
@@ -237,7 +237,7 @@ export const projects = [
     description:
       "Scalable e-commerce recommendation engine using AstraDB for vector storage and semantic retrieval — deployed on Kubernetes with Prometheus and Grafana monitoring.",
     tags: ["Python", "Kubernetes", "AstraDB", "Prometheus", "Grafana"],
-    link: "https://github.com/Sanket-Kolhe",
+    link: "https://github.com/sanket801036",
     featured: false,
     gradient: "from-accent-lime via-accent-violet to-accent-pink",
   },
@@ -246,7 +246,7 @@ export const projects = [
     description:
       "Computer Vision + LLM-powered celebrity question-answering system using OpenCV and Groq Llama 4 models — automated deployment with Kubernetes and CircleCI.",
     tags: ["OpenCV", "Flask", "Groq API", "Llama 4", "Kubernetes", "CircleCI"],
-    link: "https://github.com/Sanket-Kolhe",
+    link: "https://github.com/sanket801036",
     featured: false,
     gradient: "from-accent-pink via-accent-cyan to-accent-lime",
   },
@@ -255,7 +255,7 @@ export const projects = [
     description:
       "AI-based travel planning application with centralized logging via the ELK Stack (Elasticsearch, Logstash, Kibana) — cloud-native services deployed on Kubernetes.",
     tags: ["Python", "Kubernetes", "Elasticsearch", "ELK Stack"],
-    link: "https://github.com/Sanket-Kolhe",
+    link: "https://github.com/sanket801036",
     featured: false,
     gradient: "from-accent-violet via-accent-lime to-accent-cyan",
   },
