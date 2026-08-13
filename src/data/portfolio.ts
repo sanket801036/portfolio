@@ -14,11 +14,11 @@ export const profile = {
   github: "https://github.com/Sanket-Kolhe",
   linkedin: "https://www.linkedin.com/in/sanket-kolhe",
   summary:
-    "Full-Stack Developer with 2.5+ years of experience building scalable web and AI-driven applications using React, Django, Flask and MySQL. Skilled in CI/CD, Docker, Jenkins and AWS with hands-on integration of AI/NLP features for intelligent automation.",
+    "Python Full-Stack & AI Developer with 3 years of experience designing scalable web applications, AI-powered systems and automation solutions using Django, Flask, FastAPI, React and MySQL. Hands-on with RAG, Computer Vision, OCR, Web Scraping and Generative AI — shipping production-ready software with Docker, Kubernetes, Jenkins, AWS and CI/CD pipelines.",
 };
 
 export const stats = [
-  { label: "Years of Experience", value: "2.5+" },
+  { label: "Years of Experience", value: "3" },
   { label: "AI Projects Shipped", value: "8+" },
   { label: "RAG Chatbot Uptime", value: "99.9%" },
   { label: "OCR Accuracy", value: "95%+" },
@@ -54,6 +54,7 @@ export const skillGroups = [
       "PaddleOCR",
       "InsightFace",
       "LayoutLMv3",
+      "Groq API",
       "Whisper / Deepgram (Voice AI)",
       "Multimodal Models",
     ],
@@ -92,6 +93,8 @@ export const skillGroups = [
       "Redis",
       "Pinecone",
       "FAISS",
+      "AstraDB",
+      "Elasticsearch",
       "Supabase",
     ],
   },
@@ -102,8 +105,10 @@ export const skillGroups = [
       "Docker",
       "Kubernetes",
       "Jenkins",
+      "CircleCI",
       "GitHub Actions",
       "AWS (ECS Fargate / ECR / App Runner)",
+      "Nginx / Gunicorn",
       "Cloudflare Workers",
       "Vercel",
       "Fly.io",
@@ -116,8 +121,12 @@ export const skillGroups = [
     skills: [
       "SonarQube",
       "Trivy",
-      "Grafana Cloud",
+      "Prometheus / Grafana",
+      "ELK Stack (Logstash, Kibana)",
       "Selenium / Playwright",
+      "BeautifulSoup",
+      "Undetected-Chromedriver",
+      "Proxy / VPN Rotation",
       "AWS IAM",
       "Load Balancers",
       "OAuth 2.1 / JWT",
@@ -134,12 +143,14 @@ export const experiences = [
     current: true,
     bullets: [
       "Architected and built Shooting Software — an enterprise studio workflow platform covering Warehouse Challan, Sourcing, Mood Board, Studio Dispatch, QC, Editing and Launch with SKU/barcode tracking, SLA alerts and PMS/ERP auto-upload.",
-      "Designed an AI-powered image-based RAG system for cloth similarity search using computer-vision embeddings and vector databases.",
-      "Developed Fabric Dispatch mobile app with React Native (Expo Go) + REST APIs — improved dispatch visibility and internal ops.",
-      "Built the Sutton full-stack production website with React (frontend) and Flask (backend) — secure APIs, role-based access, optimized DB.",
-      "Implemented large-scale e-commerce scraping pipelines for Amazon, Flipkart and Myntra with anti-block handling and structured storage.",
+      "Designed an enterprise e-commerce scraping portal where users upload Excel (XLSX) sheets of target URLs to autonomously scrape 10,000+ daily product records across Amazon, Flipkart and Myntra — eliminating reliance on costly third-party credit-based APIs.",
+      "Built fault-tolerant anti-bot scraping pipelines using mobile SIM network routing, VPN switching, randomized human-like click delays, Chrome profiles and cookie serialization (.pkl) to bypass CAPTCHAs and prevent IP bans.",
+      "Extracted 10+ critical attributes per product — multi-seller pricing, Buybox competition, Amazon BSR and star-rating distributions — powering competitive inventory pricing strategies.",
+      "Designed an AI-powered Image RAG system for cloth similarity search using computer-vision embeddings, FAISS/Pinecone and Flask APIs.",
+      "Developed Fabric Dispatch mobile app with React Native (Expo) + REST APIs and a Flask backend for real-time dispatch verification.",
+      "Built the Sutton full-stack production website with React, Flask and MySQL — secure authentication and role-based access.",
     ],
-    tags: ["React", "Flask", "MySQL", "React Native", "Vector DB", "Computer Vision"],
+    tags: ["React", "Flask", "MySQL", "Selenium", "React Native", "Vector DB", "Computer Vision"],
   },
   {
     company: "XRDA3 Technologies Pvt. Ltd.",
@@ -170,8 +181,8 @@ export const projects = [
   {
     title: "Multi-AI Agent System",
     description:
-      "Orchestrated multi-agent system using LangChain for autonomous task completion — containerized with Docker, CI/CD via Jenkins, deployed on AWS Fargate.",
-    tags: ["LangChain", "Docker", "Jenkins", "AWS Fargate"],
+      "Enterprise-grade multi-agent AI platform built with FastAPI, LangChain and LangGraph — containerized with Docker, deployed on AWS ECS via Jenkins CI/CD with SonarQube code-quality gates.",
+    tags: ["FastAPI", "LangChain", "LangGraph", "Docker", "Jenkins", "AWS ECS"],
     link: "https://github.com/Sanket-Kolhe",
     featured: true,
     gradient: "from-accent-violet via-accent-pink to-accent-cyan",
@@ -221,13 +232,40 @@ export const projects = [
     featured: false,
     gradient: "from-accent-cyan via-accent-pink to-accent-violet",
   },
+  {
+    title: "Flipkart Product Recommendation System",
+    description:
+      "Scalable e-commerce recommendation engine using AstraDB for vector storage and semantic retrieval — deployed on Kubernetes with Prometheus and Grafana monitoring.",
+    tags: ["Python", "Kubernetes", "AstraDB", "Prometheus", "Grafana"],
+    link: "https://github.com/Sanket-Kolhe",
+    featured: false,
+    gradient: "from-accent-lime via-accent-violet to-accent-pink",
+  },
+  {
+    title: "Celebrity Detector & QA System",
+    description:
+      "Computer Vision + LLM-powered celebrity question-answering system using OpenCV and Groq Llama 4 models — automated deployment with Kubernetes and CircleCI.",
+    tags: ["OpenCV", "Flask", "Groq API", "Llama 4", "Kubernetes", "CircleCI"],
+    link: "https://github.com/Sanket-Kolhe",
+    featured: false,
+    gradient: "from-accent-pink via-accent-cyan to-accent-lime",
+  },
+  {
+    title: "AI Travel Planner",
+    description:
+      "AI-based travel planning application with centralized logging via the ELK Stack (Elasticsearch, Logstash, Kibana) — cloud-native services deployed on Kubernetes.",
+    tags: ["Python", "Kubernetes", "Elasticsearch", "ELK Stack"],
+    link: "https://github.com/Sanket-Kolhe",
+    featured: false,
+    gradient: "from-accent-violet via-accent-lime to-accent-cyan",
+  },
 ];
 
 export const education = [
   {
     degree: "Master of Computer Applications (MCA)",
     school: "Dr. Vithalrao Vikhe Patil Foundation's IBMRD",
-    university: "Pune University",
+    university: "Pune University | CGPA 7.04/10",
     year: "2025",
   },
   {
