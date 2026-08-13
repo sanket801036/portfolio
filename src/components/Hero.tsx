@@ -94,7 +94,9 @@ export default function Hero() {
               <ArrowDown size={16} className="group-hover:translate-y-1 transition-transform" />
             </a>
             <a
-              href={`mailto:${profile.email}`}
+              href={`https://mail.google.com/mail/?view=cm&fs=1&to=${profile.email}&su=${encodeURIComponent("Hello Sanket — via portfolio")}`}
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-5 py-3 rounded-xl glass hover:bg-white/10 text-slate-200 font-semibold transition-colors"
             >
               <Mail size={16} /> Get in touch
