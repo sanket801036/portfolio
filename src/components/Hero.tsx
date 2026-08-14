@@ -1,197 +1,110 @@
-import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowDown, Download, Mail, Sparkles } from "lucide-react";
-import { WhatsAppIcon } from "./SocialIcons";
+import { ArrowUpRight } from "lucide-react";
 import { profile, stats } from "../data/portfolio";
 
-function useTypewriter(words: string[], speed = 80, pause = 1500) {
-  const [text, setText] = useState("");
-  const [index, setIndex] = useState(0);
-  const [deleting, setDeleting] = useState(false);
-
-  useEffect(() => {
-    const current = words[index % words.length];
-    const timer = setTimeout(
-      () => {
-        if (!deleting) {
-          setText(current.slice(0, text.length + 1));
-          if (text.length + 1 === current.length) {
-            setTimeout(() => setDeleting(true), pause);
-          }
-        } else {
-          setText(current.slice(0, text.length - 1));
-          if (text.length === 0) {
-            setDeleting(false);
-            setIndex((i) => i + 1);
-          }
-        }
-      },
-      deleting ? speed / 2 : speed
-    );
-    return () => clearTimeout(timer);
-  }, [text, deleting, index, words, speed, pause]);
-
-  return text;
-}
+const rise = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0 },
+};
 
 export default function Hero() {
-  const typed = useTypewriter(profile.roles);
-
   return (
-    <section
-      id="home"
-      className="relative min-h-screen flex items-center justify-center section-padding pt-32"
-    >
-      <div className="max-w-6xl w-full mx-auto grid md:grid-cols-[1.2fr_1fr] gap-12 items-center">
-        <div>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs text-slate-300 mb-6"
-          >
-            <Sparkles size={14} className="text-accent-violet" />
-            Available for new opportunities
-            <span className="w-2 h-2 rounded-full bg-accent-lime animate-pulse" />
-          </motion.div>
+    <section id="top" className="shell pb-20 pt-16 sm:pb-28 sm:pt-24">
+      <motion.div
+        initial="hidden"
+        animate="show"
+        transition={{ staggerChildren: 0.08, delayChildren: 0.05 }}
+      >
+        <motion.div variants={rise} transition={{ duration: 0.5 }} className="flex items-center gap-3">
+          <span className="relative flex h-1.5 w-1.5">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
+            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
+          </span>
+          <span className="label">Open to new opportunities</span>
+        </motion.div>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.05]"
-          >
-            Hi, I'm <span className="gradient-text">{profile.name.split(" ")[0]}</span>
-            <br />
-            <span className="text-slate-300 text-3xl md:text-5xl font-bold">
-              I build{" "}
-              <span className="gradient-text font-mono">
-                {typed}
-                <span className="inline-block w-[3px] h-8 md:h-12 bg-accent-violet ml-1 translate-y-1 animate-pulse" />
-              </span>
-            </span>
-          </motion.h1>
+        <motion.h1
+          variants={rise}
+          transition={{ duration: 0.6 }}
+          className="display mt-8 text-6xl sm:text-7xl md:text-8xl"
+        >
+          {profile.name}
+        </motion.h1>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.25 }}
-            className="mt-6 text-slate-400 text-base md:text-lg max-w-xl leading-relaxed"
-          >
-            {profile.summary}
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="mt-8 flex flex-wrap gap-3"
-          >
-            <a
-              href="#projects"
-              className="group inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-accent-cyan via-accent-violet to-accent-pink text-white font-semibold shadow-glow hover:shadow-glow-cyan transition-all"
-            >
-              View Projects
-              <ArrowDown size={16} className="group-hover:translate-y-1 transition-transform" />
-            </a>
-            <a
-              href={`https://mail.google.com/mail/?view=cm&fs=1&to=${profile.email}&su=${encodeURIComponent("Hello Sanket — via portfolio")}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl glass hover:bg-white/10 text-slate-200 font-semibold transition-colors"
-            >
-              <Mail size={16} /> Get in touch
-            </a>
-            <a
-              href={`https://wa.me/${profile.phone.replace(/\D/g, "")}?text=${encodeURIComponent("Hi Sanket, I found you through your portfolio.")}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-[#25D366]/90 hover:bg-[#25D366] text-white font-semibold transition-colors"
-            >
-              <WhatsAppIcon size={16} /> WhatsApp
-            </a>
-            <a
-              href={profile.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl glass hover:bg-white/10 text-slate-200 font-semibold transition-colors"
-            >
-              <Download size={16} /> Resume
-            </a>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-            className="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-4"
-          >
-            {stats.map((s) => (
-              <div key={s.label} className="glass p-4">
-                <div className="text-2xl md:text-3xl font-bold gradient-text">{s.value}</div>
-                <div className="text-xs text-slate-400 mt-1">{s.label}</div>
-              </div>
-            ))}
-          </motion.div>
-        </div>
+        <motion.p
+          variants={rise}
+          transition={{ duration: 0.5 }}
+          className="mt-6 max-w-2xl text-xl leading-relaxed text-ink-muted sm:text-2xl"
+        >
+          {profile.title}. {profile.lead}
+        </motion.p>
 
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="relative flex items-center justify-center"
+          variants={rise}
+          transition={{ duration: 0.5 }}
+          className="mt-8 flex flex-wrap items-center gap-x-3 gap-y-2 font-mono text-xs text-ink-faint"
         >
-          <div className="relative w-64 h-64 md:w-80 md:h-80">
-            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-accent-cyan via-accent-violet to-accent-pink blur-2xl opacity-40 animate-pulse" />
-            <div className="absolute inset-0 rounded-full border border-white/10 animate-spin-slow" />
-            <div className="absolute inset-6 rounded-full border border-white/10 animate-spin-slow" style={{ animationDirection: "reverse" }} />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="relative w-48 h-48 md:w-60 md:h-60 rounded-full bg-gradient-to-br from-accent-violet via-accent-pink to-accent-cyan p-1 shadow-glow animate-float">
-                <img
-                  src="https://avatars.githubusercontent.com/sanket801036"
-                  alt="Sanket Kolhe"
-                  className="w-full h-full rounded-full object-cover"
-                />
-              </div>
-            </div>
-            {["LangGraph", "Next.js", "MCP", "Python", "AWS"].map((tech, i) => {
-              const angle = (i / 5) * Math.PI * 2 - Math.PI / 2;
-              const radius = 105;
-              const x = Math.cos(angle) * radius;
-              const y = Math.sin(angle) * radius;
-              return (
-                <div
-                  key={tech}
-                  className="absolute"
-                  style={{
-                    left: "50%",
-                    top: "50%",
-                    transform: `translate(calc(${x}px - 50%), calc(${y}px - 50%))`,
-                  }}
-                >
-                  <motion.div
-                    className="chip !text-[10px] shadow-lg"
-                    animate={{ y: [0, -6, 0] }}
-                    transition={{ duration: 3 + i * 0.3, repeat: Infinity, ease: "easeInOut" }}
-                  >
-                    {tech}
-                  </motion.div>
-                </div>
-              );
-            })}
-          </div>
+          <span>{profile.location}</span>
+          <span className="text-rule">/</span>
+          <span>3 years experience</span>
+          <span className="text-rule">/</span>
+          <span>Python · AI · Cloud</span>
         </motion.div>
-      </div>
 
-      <a
-        href="#about"
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-slate-500 hover:text-white transition-colors"
-        aria-label="Scroll down"
-      >
-        <motion.div animate={{ y: [0, 8, 0] }} transition={{ duration: 1.8, repeat: Infinity }}>
-          <ArrowDown size={22} />
+        <motion.div
+          variants={rise}
+          transition={{ duration: 0.5 }}
+          className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3"
+        >
+          <a
+            href="#work"
+            className="rounded-full bg-ink px-6 py-3 text-sm font-medium text-paper transition-opacity hover:opacity-85"
+          >
+            View selected work
+          </a>
+          <a
+            href={profile.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="link inline-flex items-center gap-1 text-sm"
+          >
+            GitHub <ArrowUpRight size={13} />
+          </a>
+          {profile.resumeUrl && (
+            <a
+              href={profile.resumeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link inline-flex items-center gap-1 text-sm"
+            >
+              Résumé <ArrowUpRight size={13} />
+            </a>
+          )}
+          <a
+            href={`https://mail.google.com/mail/?view=cm&fs=1&to=${profile.email}&su=${encodeURIComponent(
+              "Hello Sanket — via your portfolio"
+            )}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="link inline-flex items-center gap-1 text-sm"
+          >
+            Email <ArrowUpRight size={13} />
+          </a>
         </motion.div>
-      </a>
+
+        <motion.dl
+          variants={rise}
+          transition={{ duration: 0.5 }}
+          className="rule-top mt-16 grid grid-cols-2 gap-x-6 gap-y-8 pt-8 sm:grid-cols-4"
+        >
+          {stats.map((s) => (
+            <div key={s.label}>
+              <dt className="display text-4xl text-accent sm:text-5xl">{s.value}</dt>
+              <dd className="mt-2 text-sm leading-snug text-ink-faint">{s.label}</dd>
+            </div>
+          ))}
+        </motion.dl>
+      </motion.div>
     </section>
   );
 }

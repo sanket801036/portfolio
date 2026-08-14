@@ -1,76 +1,70 @@
-import { motion } from "framer-motion";
-import { ArrowUpRight, Star } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
+import Section, { Reveal } from "./Section";
 import { projects } from "../data/portfolio";
+
+const featured = projects.filter((p) => p.featured);
+const rest = projects.filter((p) => !p.featured);
 
 export default function Projects() {
   return (
-    <section id="projects" className="section-padding">
-      <div className="max-w-6xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-14"
-        >
-          <span className="chip mb-4">Portfolio</span>
-          <h2 className="section-title">
-            Featured <span className="gradient-text">Projects</span>
-          </h2>
-          <p className="mt-4 text-slate-400 max-w-xl mx-auto">
-            Production-grade AI and full-stack systems — from RAG pipelines to mobile apps.
-          </p>
-        </motion.div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {projects.map((p, i) => (
-            <motion.a
-              key={p.title}
+    <Section
+      id="work"
+      index="02"
+      label="Selected work"
+      title="Systems built to run, not to demo."
+      intro="Production AI and full-stack projects — the ones with users, uptime targets and deployment pipelines behind them."
+    >
+      <div className="border-t border-rule">
+        {featured.map((p, i) => (
+          <Reveal key={p.title} delay={i * 0.05}>
+            <a
               href={p.link}
               target="_blank"
               rel="noopener noreferrer"
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: i * 0.08 }}
-              whileHover={{ y: -6 }}
-              className="group relative glass p-0 overflow-hidden glow-border"
+              className="group block border-b border-rule py-8 transition-colors hover:bg-accent-soft"
             >
-              <div className={`h-32 bg-gradient-to-br ${p.gradient} relative overflow-hidden`}>
-                <div className="absolute inset-0 bg-bg/30" />
-                <div className="absolute inset-0 grid-bg opacity-50" />
-                {p.featured && (
-                  <span className="absolute top-3 right-3 flex items-center gap-1 text-[10px] font-semibold px-2 py-1 rounded-full bg-black/50 backdrop-blur text-accent-lime border border-accent-lime/30">
-                    <Star size={10} className="fill-accent-lime" /> Featured
-                  </span>
-                )}
-                <div className="absolute bottom-3 left-4 right-4 flex items-end justify-between">
-                  <h3 className="text-lg font-bold text-white leading-tight drop-shadow-lg">
+              <div className="grid gap-4 md:grid-cols-[7rem_1fr] md:gap-8">
+                <span className="label pt-2">{p.year}</span>
+                <div>
+                  <h3 className="display flex items-start gap-2 text-3xl transition-colors group-hover:text-accent sm:text-4xl">
                     {p.title}
+                    <ArrowUpRight
+                      size={20}
+                      className="mt-1 shrink-0 text-ink-faint transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent"
+                    />
                   </h3>
-                  <ArrowUpRight
-                    size={20}
-                    className="text-white opacity-60 group-hover:opacity-100 group-hover:rotate-12 transition-all flex-shrink-0"
-                  />
+                  <p className="mt-3 max-w-2xl leading-relaxed text-ink-muted">{p.description}</p>
+                  <p className="tag mt-4">{p.tags.join("  ·  ")}</p>
                 </div>
               </div>
-
-              <div className="p-5">
-                <p className="text-sm text-slate-400 leading-relaxed min-h-[70px]">
-                  {p.description}
-                </p>
-                <div className="mt-4 flex flex-wrap gap-1.5">
-                  {p.tags.map((t) => (
-                    <span key={t} className="chip !text-[10px] !py-0.5">
-                      {t}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </motion.a>
-          ))}
-        </div>
+            </a>
+          </Reveal>
+        ))}
       </div>
-    </section>
+
+      <Reveal>
+        <h3 className="label mt-16">Also built</h3>
+      </Reveal>
+
+      <div className="mt-6 grid gap-px overflow-hidden rounded-lg bg-rule sm:grid-cols-2">
+        {rest.map((p, i) => (
+          <Reveal key={p.title} delay={i * 0.04}>
+            <a
+              href={p.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex h-full flex-col bg-paper p-6 transition-colors hover:bg-accent-soft"
+            >
+              <div className="flex items-baseline justify-between gap-3">
+                <h4 className="font-medium transition-colors group-hover:text-accent">{p.title}</h4>
+                <span className="label shrink-0">{p.year}</span>
+              </div>
+              <p className="mt-3 flex-1 text-sm leading-relaxed text-ink-muted">{p.description}</p>
+              <p className="tag mt-4">{p.tags.join("  ·  ")}</p>
+            </a>
+          </Reveal>
+        ))}
+      </div>
+    </Section>
   );
 }

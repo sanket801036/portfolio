@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import { GithubIcon, LinkedinIcon } from "./SocialIcons";
+import ThemeToggle from "./ThemeToggle";
 import { profile } from "../data/portfolio";
 
 const links = [
   { href: "#about", label: "About" },
-  { href: "#skills", label: "Skills" },
+  { href: "#work", label: "Work" },
   { href: "#experience", label: "Experience" },
-  { href: "#projects", label: "Projects" },
+  { href: "#open-source", label: "Open source" },
+  { href: "#stack", label: "Stack" },
+  { href: "#credentials", label: "Credentials" },
   { href: "#contact", label: "Contact" },
 ];
 
@@ -17,79 +19,56 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handler);
+    const handler = () => setScrolled(window.scrollY > 12);
+    handler();
+    window.addEventListener("scroll", handler, { passive: true });
     return () => window.removeEventListener("scroll", handler);
   }, []);
 
   return (
-    <motion.nav
-      initial={{ y: -50, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-bg/70 backdrop-blur-xl border-b border-white/10"
-          : "bg-transparent"
+    <header
+      className={`sticky top-0 z-50 transition-colors ${
+        scrolled ? "border-b border-rule bg-paper/85 backdrop-blur" : "border-b border-transparent"
       }`}
     >
-      <div className="max-w-7xl mx-auto flex items-center justify-between px-6 md:px-12 py-4">
-        <a href="#home" className="flex items-center gap-2 font-bold text-lg">
-          <span className="w-8 h-8 rounded-lg bg-gradient-to-br from-accent-cyan via-accent-violet to-accent-pink flex items-center justify-center text-white font-bold shadow-glow">
-            S
-          </span>
-          <span className="gradient-text">Sanket.dev</span>
+      <nav className="shell flex items-center justify-between py-4">
+        <a href="#top" className="font-mono text-sm font-medium tracking-label">
+          SK<span className="text-accent">.</span>
         </a>
 
-        <ul className="hidden md:flex items-center gap-8 text-sm font-medium">
+        <ul className="hidden items-center gap-6 lg:flex">
           {links.map((l) => (
             <li key={l.href}>
               <a
                 href={l.href}
-                className="text-slate-300 hover:text-white transition-colors relative group"
+                className="text-sm text-ink-muted transition-colors hover:text-accent"
               >
                 {l.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-accent-cyan to-accent-violet group-hover:w-full transition-all" />
               </a>
             </li>
           ))}
         </ul>
 
-        <div className="hidden md:flex items-center gap-3">
-          <a
-            href={profile.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-2 rounded-lg hover:bg-white/10 transition-colors text-slate-300 hover:text-white"
-            aria-label="GitHub"
-          >
-            <GithubIcon size={18} />
-          </a>
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
           <a
             href={profile.linkedin}
             target="_blank"
             rel="noopener noreferrer"
-            className="p-2 rounded-lg hover:bg-white/10 transition-colors text-slate-300 hover:text-white"
-            aria-label="LinkedIn"
+            className="hidden rounded-full border border-rule px-4 py-2 text-sm text-ink-muted transition-colors hover:border-accent hover:text-accent sm:block"
           >
-            <LinkedinIcon size={18} />
+            LinkedIn
           </a>
-          <a
-            href="#contact"
-            className="ml-2 px-4 py-2 rounded-lg bg-gradient-to-r from-accent-cyan to-accent-violet text-white text-sm font-semibold hover:shadow-glow transition-shadow"
+          <button
+            onClick={() => setOpen(!open)}
+            className="rounded-full border border-rule p-2 text-ink-muted lg:hidden"
+            aria-label="Toggle menu"
+            aria-expanded={open}
           >
-            Hire Me
-          </a>
+            {open ? <X size={15} /> : <Menu size={15} />}
+          </button>
         </div>
-
-        <button
-          onClick={() => setOpen(!open)}
-          className="md:hidden text-slate-200 p-2"
-          aria-label="Menu"
-        >
-          {open ? <X size={24} /> : <Menu size={24} />}
-        </button>
-      </div>
+      </nav>
 
       <AnimatePresence>
         {open && (
@@ -97,32 +76,25 @@ export default function Navbar() {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            className="md:hidden bg-bg-soft/95 backdrop-blur-xl border-t border-white/10 overflow-hidden"
+            transition={{ duration: 0.2 }}
+            className="overflow-hidden border-t border-rule bg-paper lg:hidden"
           >
-            <ul className="flex flex-col p-6 gap-4">
+            <ul className="shell flex flex-col py-2">
               {links.map((l) => (
-                <li key={l.href}>
+                <li key={l.href} className="border-b border-rule/60 last:border-0">
                   <a
                     href={l.href}
                     onClick={() => setOpen(false)}
-                    className="block text-slate-300 hover:text-white transition-colors"
+                    className="block py-3 text-ink-muted transition-colors hover:text-accent"
                   >
                     {l.label}
                   </a>
                 </li>
               ))}
-              <li className="flex gap-3 pt-3 border-t border-white/10">
-                <a href={profile.github} target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg bg-white/5">
-                  <GithubIcon size={18} />
-                </a>
-                <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg bg-white/5">
-                  <LinkedinIcon size={18} />
-                </a>
-              </li>
             </ul>
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.nav>
+    </header>
   );
 }

@@ -1,10 +1,30 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
+  --paper: #fbfaf7;
+  --paper-raised: #f3f1ea;
+  --ink: #14140f;
+  --ink-muted: #4a4a42;
+  --ink-faint: #77766d;
+  --rule: #e0ddd3;
+  --accent: #b4441e;
+  --accent-soft: rgba(180, 68, 30, 0.09);
+  color-scheme: light;
+}
+
+.dark {
+  --paper: #0d0d0b;
+  --paper-raised: #161613;
+  --ink: #efede4;
+  --ink-muted: #a8a69c;
+  --ink-faint: #7e7d74;
+  --rule: #272620;
+  --accent: #f0764a;
+  --accent-soft: rgba(240, 118, 74, 0.12);
   color-scheme: dark;
 }
 
@@ -13,74 +33,71 @@ html {
 }
 
 body {
-  @apply bg-bg text-slate-200 font-sans antialiased;
-  background-image:
-    radial-gradient(circle at 20% 10%, rgba(167,139,250,0.15), transparent 40%),
-    radial-gradient(circle at 80% 80%, rgba(34,211,238,0.12), transparent 40%),
-    radial-gradient(circle at 50% 50%, rgba(244,114,182,0.08), transparent 50%);
-  background-attachment: fixed;
-  min-height: 100vh;
+  @apply bg-paper text-ink font-sans antialiased;
   margin: 0;
+  min-height: 100vh;
 }
 
 ::selection {
-  @apply bg-accent-violet/40 text-white;
+  background: var(--accent);
+  color: var(--paper);
 }
 
 ::-webkit-scrollbar {
   width: 10px;
 }
 ::-webkit-scrollbar-track {
-  @apply bg-bg-soft;
+  background: var(--paper);
 }
 ::-webkit-scrollbar-thumb {
-  @apply bg-gradient-to-b from-accent-violet to-accent-cyan rounded-full;
+  background: var(--rule);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ink-faint);
+}
+
+*:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 @layer components {
-  .gradient-text {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-accent-cyan via-accent-violet to-accent-pink;
+  .shell {
+    @apply mx-auto w-full max-w-content px-6 sm:px-10;
   }
-  .glass {
-    @apply bg-white/[0.04] backdrop-blur-xl border border-white/10 rounded-2xl;
-  }
-  .glow-border {
-    position: relative;
-  }
-  .glow-border::before {
-    content: "";
-    position: absolute;
-    inset: -1px;
-    border-radius: inherit;
-    padding: 1px;
-    background: linear-gradient(135deg, #22d3ee, #a78bfa, #f472b6);
-    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    opacity: 0.5;
-    pointer-events: none;
-    transition: opacity 0.3s;
-  }
-  .glow-border:hover::before {
-    opacity: 1;
-  }
-  .chip {
-    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold
-           bg-slate-800 border border-cyan-400/60 text-cyan-300
-           hover:border-violet-400 hover:bg-slate-700 hover:text-white transition-all;
-  }
-  .section-title {
-    @apply text-3xl md:text-5xl font-bold tracking-tight;
-  }
-  .section-padding {
-    @apply py-20 md:py-28 px-6 md:px-12;
-  }
-}
 
-.grid-bg {
-  background-image:
-    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
-  background-size: 50px 50px;
-  mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
+  /* Small uppercase monospace labels — the editorial "metadata" voice. */
+  .label {
+    @apply font-mono text-[11px] uppercase tracking-label text-ink-faint;
+  }
+
+  .display {
+    @apply font-display font-normal leading-[0.95] tracking-[-0.01em];
+  }
+
+  .section-title {
+    @apply display text-4xl sm:text-5xl;
+  }
+
+  /* Text links that underline on hover rather than shouting in color. */
+  .link {
+    @apply text-ink underline decoration-rule underline-offset-4 transition-colors
+           hover:text-accent hover:decoration-accent;
+  }
+
+  .tag {
+    @apply font-mono text-[11px] text-ink-faint;
+  }
+
+  .rule-top {
+    @apply border-t border-rule;
+  }
 }

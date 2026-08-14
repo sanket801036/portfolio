@@ -4,12 +4,29 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#05060a" />
-    <meta name="description" content="Sanket Kolhe — Python Full-Stack & AI Engineer. Building scalable AI-driven web applications with React, Django, Flask, LangChain and AWS." />
-    <meta property="og:title" content="Sanket Kolhe — AI Full-Stack Engineer" />
-    <meta property="og:description" content="2.5+ years building scalable AI-driven apps. React, Python, LangChain, AWS." />
+    <meta name="theme-color" content="#fbfaf7" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0d0d0b" media="(prefers-color-scheme: dark)" />
+    <meta
+      name="description"
+      content="Sanket Kolhe — Python full-stack and AI engineer. Building RAG systems, computer-vision pipelines and the cloud infrastructure that keeps them in production."
+    />
+    <meta property="og:title" content="Sanket Kolhe — Python Full-Stack & AI Engineer" />
+    <meta
+      property="og:description"
+      content="3 years building production AI and full-stack systems with Python, Flask, React, LangChain, Docker and AWS."
+    />
     <meta property="og:type" content="website" />
-    <title>Sanket Kolhe — AI Full-Stack Engineer</title>
+    <title>Sanket Kolhe — Python Full-Stack & AI Engineer</title>
+    <script>
+      // Applied before first paint so the page never flashes the wrong theme.
+      (function () {
+        var stored = localStorage.getItem("theme");
+        var dark = stored
+          ? stored === "dark"
+          : window.matchMedia("(prefers-color-scheme: dark)").matches;
+        document.documentElement.classList.toggle("dark", dark);
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
