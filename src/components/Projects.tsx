@@ -1,4 +1,4 @@
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, KeyRound } from "lucide-react";
 import Section, { Reveal } from "./Section";
 import { projects } from "../data/portfolio";
 
@@ -17,27 +17,60 @@ export default function Projects() {
       <div className="border-t border-rule">
         {featured.map((p, i) => (
           <Reveal key={p.title} delay={i * 0.05}>
-            <a
-              href={p.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group block border-b border-rule py-8 transition-colors hover:bg-accent-soft"
-            >
-              <div className="grid gap-4 md:grid-cols-[7rem_1fr] md:gap-8">
-                <span className="label pt-2">{p.year}</span>
-                <div>
-                  <h3 className="display flex items-start gap-2 text-3xl transition-colors group-hover:text-accent sm:text-4xl">
-                    {p.title}
-                    <ArrowUpRight
-                      size={20}
-                      className="mt-1 shrink-0 text-ink-faint transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent"
-                    />
-                  </h3>
-                  <p className="mt-3 max-w-2xl leading-relaxed text-ink-muted">{p.description}</p>
-                  <p className="tag mt-4">{p.tags.join("  ·  ")}</p>
+            <div className="group border-b border-rule py-8 transition-colors hover:bg-accent-soft">
+              <a
+                href={p.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block"
+              >
+                <div className="grid gap-4 md:grid-cols-[7rem_1fr] md:gap-8">
+                  <span className="label pt-2">{p.year}</span>
+                  <div>
+                    <h3 className="display flex items-start gap-2 text-3xl transition-colors group-hover:text-accent sm:text-4xl">
+                      {p.title}
+                      <ArrowUpRight
+                        size={20}
+                        className="mt-1 shrink-0 text-ink-faint transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent"
+                      />
+                    </h3>
+                    <p className="mt-3 max-w-2xl leading-relaxed text-ink-muted">{p.description}</p>
+                    <p className="tag mt-4">{p.tags.join("  ·  ")}</p>
+                  </div>
                 </div>
-              </div>
-            </a>
+              </a>
+
+              {p.demoUrl && (
+                <div className="mt-6 md:ml-[calc(7rem+2rem)]">
+                  <a
+                    href={p.demoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="link inline-flex items-center gap-1 text-sm font-medium"
+                  >
+                    Live demo <ArrowUpRight size={14} />
+                  </a>
+
+                  {p.demoCredentials && p.demoCredentials.length > 0 && (
+                    <div className="mt-3 inline-block rounded-lg border border-rule bg-paper-raised px-4 py-3">
+                      <p className="tag mb-2 flex items-center gap-1.5">
+                        <KeyRound size={12} /> Demo logins (test data only)
+                      </p>
+                      <div className="space-y-1">
+                        {p.demoCredentials.map((c) => (
+                          <p key={c.role} className="font-mono text-xs text-ink-muted">
+                            <span className="text-ink-faint">{c.role}:</span>{" "}
+                            <span className="text-ink">{c.username}</span>
+                            {" / "}
+                            <span className="text-ink">{c.password}</span>
+                          </p>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
           </Reveal>
         ))}
       </div>

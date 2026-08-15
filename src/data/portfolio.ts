@@ -183,7 +183,35 @@ export const experiences = [
   },
 ];
 
-export const projects = [
+export type DemoCredential = { role: string; username: string; password: string };
+
+export type Project = {
+  title: string;
+  year: string;
+  description: string;
+  tags: string[];
+  link: string;
+  featured: boolean;
+  demoUrl?: string;
+  demoCredentials?: DemoCredential[];
+};
+
+export const projects: Project[] = [
+  {
+    title: "College ERP Portal",
+    year: "2026",
+    description:
+      "Rebuilt a legacy Django 2.1 / MySQL college ERP end to end — migrated it to PostgreSQL, modernised the UI/UX, and shipped fee tracking and a role-based notice board for students, teachers and admins. Deployed to Render via a Blueprint (gunicorn, whitenoise, managed Postgres).",
+    tags: ["Django", "PostgreSQL", "REST Framework", "Bootstrap", "openpyxl", "Render"],
+    link: "https://github.com/sanket801036/College-ERP-master",
+    demoUrl: "https://college-erp-rlyy.onrender.com",
+    demoCredentials: [
+      { role: "Admin", username: "admin", password: "admin12345" },
+      { role: "Student", username: "teststud", password: "testpass123" },
+      { role: "Teacher", username: "testteach", password: "testpass123" },
+    ],
+    featured: true,
+  },
   {
     title: "Multi-AI Agent System",
     year: "2025",
