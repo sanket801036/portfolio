@@ -2,7 +2,7 @@ import { useId, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpRight, ChevronDown } from "lucide-react";
 import Section, { Reveal } from "./Section";
-import { openSource } from "../data/portfolio";
+import { openSource, openSourceStats } from "../data/portfolio";
 import type { OpenSourceEntry } from "../data/portfolio";
 
 const toneClass = {
@@ -143,8 +143,19 @@ export default function OpenSource() {
       index="04"
       label="Open source"
       title="Reading other people's stack traces."
-      intro="Triage and root-cause work on public repositories — the analysis, not just the patch. Open any entry for the full write-up: what broke, how I found it, and what I chose not to change."
+      intro="Merged fixes and root-cause work on public repositories — the analysis, not just the patch. Open any entry for the full write-up: what broke, how I found it, and what I chose not to change."
     >
+      <Reveal>
+        <dl className="mb-14 grid grid-cols-1 gap-8 border-y border-rule py-8 sm:grid-cols-3">
+          {openSourceStats.map((s) => (
+            <div key={s.label}>
+              <dt className="display text-4xl text-accent sm:text-5xl">{s.value}</dt>
+              <dd className="mt-2 text-sm leading-snug text-ink-faint">{s.label}</dd>
+            </div>
+          ))}
+        </dl>
+      </Reveal>
+
       <div className="border-t border-rule">
         {openSource.map((c, i) => (
           <Reveal key={c.title} delay={i * 0.05}>

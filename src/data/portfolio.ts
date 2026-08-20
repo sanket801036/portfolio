@@ -148,6 +148,10 @@ export const openSource: OpenSourceEntry[] = [
       links: [
         { label: "PR #8223", href: "https://github.com/tobymao/sqlglot/pull/8223" },
         { label: "Issue #8222", href: "https://github.com/tobymao/sqlglot/issues/8222" },
+        {
+          label: "Merge commit",
+          href: "https://github.com/tobymao/sqlglot/commit/038f015992d3",
+        },
       ],
     },
   },
@@ -191,6 +195,14 @@ export const openSource: OpenSourceEntry[] = [
       ],
     },
   },
+];
+
+// Headline numbers for the open-source section. Every one of these is checkable:
+// gh pr list --repo tobymao/sqlglot --author sanket801036 --state merged
+export const openSourceStats = [
+  { value: "2", label: "Pull requests merged upstream" },
+  { value: "0", label: "Changes requested in review — both merged as submitted" },
+  { value: "74k+", label: "GitHub stars across the projects involved" },
 ];
 
 export const stats = [
