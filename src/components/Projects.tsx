@@ -35,6 +35,23 @@ export default function Projects() {
                       />
                     </h3>
                     <p className="mt-3 max-w-2xl leading-relaxed text-ink-muted">{p.description}</p>
+
+                    {p.highlights && p.highlights.length > 0 && (
+                      <ul className="mt-4 max-w-2xl space-y-1.5">
+                        {p.highlights.map((h) => (
+                          <li
+                            key={h}
+                            className="flex gap-2 text-sm leading-relaxed text-ink-muted"
+                          >
+                            <span className="text-ink-faint" aria-hidden="true">
+                              &mdash;
+                            </span>
+                            <span>{h}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+
                     <p className="tag mt-4">{p.tags.join("  ·  ")}</p>
                   </div>
                 </div>

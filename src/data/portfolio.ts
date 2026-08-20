@@ -189,6 +189,9 @@ export type Project = {
   title: string;
   year: string;
   description: string;
+  /** A few specifics, for the projects where the interesting part is what is
+   *  inside rather than what it is. Rendered only on featured cards. */
+  highlights?: string[];
   tags: string[];
   link: string;
   featured: boolean;
@@ -201,8 +204,17 @@ export const projects: Project[] = [
     title: "College ERP Portal",
     year: "2026",
     description:
-      "Rebuilt a legacy Django 2.1 / MySQL college ERP end to end — migrated it to PostgreSQL, modernised the UI/UX, and shipped fee tracking and a role-based notice board for students, teachers and admins. Deployed to Render via a Blueprint (gunicorn, whitenoise, managed Postgres).",
-    tags: ["Django", "PostgreSQL", "REST Framework", "Bootstrap", "openpyxl", "Render"],
+      "Took over a legacy Django 2.1 / MySQL college ERP and rebuilt it into something a college could actually run: PostgreSQL, Django 5.2, role-based access for students, teachers and admins, and 727 tests covering the rules that matter. Deployed to Render via a Blueprint (gunicorn, whitenoise, managed Postgres).",
+    highlights: [
+      "Request-and-approve workflows with full audit trails — mark re-evaluation, leave applications (approved leave is excluded from the 75% attendance denominator, not counted as present) and attendance corrections.",
+      "Self-service password reset over email OTP: hashed single-use codes, ten-minute expiry, attempt limits, request rate limiting, and identical responses whether or not the account exists.",
+      "Notifications as data, not just mail — an in-app inbox plus idempotent scheduled digests for fee reminders, low-attendance warnings, released marks and notices; re-running the job never sends the same thing twice.",
+      "Attendance and CIE analytics drawn as inline SVG (no chart library, no CDN), plus PDF marks cards and fee receipts.",
+      "Documented REST API — token auth, Swagger/ReDoc, pagination and throttling — sharing its validation layer with the web forms so the two cannot drift.",
+      "Authorization, N+1 and data-loss bugs found by writing tests against the running app: query counts on the heaviest pages fell from 62 and 57 to 15 and 4.",
+      "CI gates every push on ruff, pip-audit and a migrations check; Docker Compose for local Postgres; dark mode across the app.",
+    ],
+    tags: ["Django 5.2", "PostgreSQL", "REST Framework", "Celery-free scheduling", "Docker", "GitHub Actions", "Render"],
     link: "https://github.com/sanket801036/College-ERP-master",
     demoUrl: "https://college-erp-rlyy.onrender.com",
     demoCredentials: [
