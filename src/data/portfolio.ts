@@ -105,12 +105,12 @@ export const openSource: OpenSourceEntry[] = [
     org: "tobymao · SQL parser & transpiler",
     scale: "9.5k+ stars",
     date: "August 2026",
-    title: "PR #8223 — DROP TABLE could only parse one table",
+    title: "Merged PR #8223 — DROP TABLE could only parse one table",
     description:
       "DROP TABLE t1, t2 is documented grammar in MySQL, PostgreSQL and SQL Server, and sqlglot rejected it outright in every dialect. The parser change is small; the work was choosing a representation that did not break the ALTER statement path, which routes through the same function.",
     link: "https://github.com/tobymao/sqlglot/pull/8223",
     tags: ["Python", "Parsers & compilers", "SQL", "Regression analysis"],
-    status: { label: "Open · CI green", tone: "open" },
+    status: { label: "Merged", tone: "merged" },
     caseStudy: {
       stack: ["Python", "sqlglot AST", "mypy", "ruff", "GitHub Actions"],
       sections: [
@@ -139,6 +139,10 @@ export const openSource: OpenSourceEntry[] = [
         {
           heading: "Scope discipline",
           body: "PostgreSQL also allows a comma-separated list for DROP VIEW, DROP INDEX and DROP SEQUENCE, and covering all of them was tempting. I left them out and said so in the PR: VIEW in particular would drag in that T-SQL generator override, and bundling unrelated changes is the pattern I had already watched get PRs closed in this repository. One reviewable change, with the follow-up offered rather than assumed.",
+        },
+        {
+          heading: "Outcome",
+          body: "Approved and merged about four hours after opening, with no review comments — the design questions a reviewer would have raised were answered in the PR body before they had to ask them. Second merged contribution to the project in a week.",
         },
       ],
       links: [
