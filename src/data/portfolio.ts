@@ -20,8 +20,8 @@ export const now = {
   updated: "August 2026",
   items: [
     {
-      text: "Triaging bugs in docling, IBM's open-source document-parsing library.",
-      href: "https://github.com/docling-project/docling",
+      text: "Contributing parser and generator fixes to sqlglot, the SQL parser and transpiler.",
+      href: "https://github.com/tobymao/sqlglot/pulls?q=author%3Asanket801036",
     },
     {
       text: "Building Image-RAG cloth similarity search and scraping infrastructure at Leemboodi.",
@@ -29,7 +29,132 @@ export const now = {
   ],
 };
 
-export const openSource = [
+// Open-source contributions. `caseStudy` is optional — when a card has one it grows a
+// "More information" button that expands into the full write-up. Every claim in here should
+// be checkable against the linked thread; an interviewer will click through.
+export type OpenSourceEntry = {
+  project: string;
+  org: string;
+  scale: string;
+  date: string;
+  title: string;
+  description: string;
+  link: string;
+  tags: string[];
+  status?: { label: string; tone: "merged" | "open" | "closed" };
+  caseStudy?: {
+    stack: string[];
+    sections: { heading: string; body: string; code?: string }[];
+    links: { label: string; href: string }[];
+  };
+};
+
+export const openSource: OpenSourceEntry[] = [
+  {
+    project: "sqlglot",
+    org: "tobymao · SQL parser & transpiler",
+    scale: "9.5k+ stars",
+    date: "August 2026",
+    title: "Merged PR #8185 — ClickHouse VALUES rewrite was not idempotent",
+    description:
+      "Transpiling ClickHouse SQL and re-parsing the result added a layer of parentheses on every pass, so any pipeline that round-trips SQL corrupted its own output. I found it with a harness that asserts f(f(x)) == f(x), traced it to a type check that missed one node shape, and fixed it in a single line. Merged by the maintainer in about a day.",
+    link: "https://github.com/tobymao/sqlglot/pull/8185",
+    tags: ["Python", "Parsers & compilers", "SQL", "Property-based testing"],
+    status: { label: "Merged", tone: "merged" },
+    caseStudy: {
+      stack: ["Python", "sqlglot AST", "unittest", "GitHub Actions"],
+      sections: [
+        {
+          heading: "The problem",
+          body: "sqlglot parses SQL into an AST and generates it back out in another dialect, which makes it the transpilation layer inside tools that rewrite queries repeatedly. That use forces a property: generating SQL and re-parsing it has to be a fixed point, so the second pass produces exactly what the first pass produced. For ClickHouse VALUES clauses it was not. Each round trip added another layer of parentheses, and the test suite never saw it because every existing test ran a single pass.",
+          code: "INSERT INTO t (a, b) VALUES (1, 2)\n-> INSERT INTO t (a, b) VALUES ((1), (2))\n-> INSERT INTO t (a, b) VALUES (((1)), ((2)))\n-> INSERT INTO t (a, b) VALUES ((((1))), (((2))))",
+        },
+        {
+          heading: "How I found it",
+          body: "Nobody had reported this, so there was no issue to pick up. I wrote a harness that ran 100 real-world statements through 17 dialects and asserted three properties per statement: no crash with a non-sqlglot exception, generation is idempotent, and an A → B → A round trip returns the original tree. The idempotence check is what caught this, because it compares pass one against pass two — precisely the axis a single-pass suite cannot see. The same harness surfaced two further defects in other dialects.",
+        },
+        {
+          heading: "Root cause",
+          body: "ClickHouse reads SELECT * FROM VALUES (1, 2, 3) as three single-column rows rather than one three-column row, so the parser rewrites the clause into a tuple of tuples. It guarded against re-wrapping by checking whether the last expression was already a Tuple. The gap: a single-value tuple is generated as (x), and (x) parses back into a Paren, not a Tuple. The guard therefore never fired on the second pass, so the rewrite ran again — and again on every pass after that.",
+          code: "# sqlglot/parsers/clickhouse.py\n# A single-value tuple is generated as \"(x)\", which is parsed back into a Paren\n# rather than a Tuple, so it's unwrapped here to keep this rewrite idempotent\nif values and not isinstance(expressions[-1], exp.Tuple):\n    value.set(\n        \"expressions\",\n        [self.expression(exp.Tuple(expressions=[expr.unnest()])) for expr in expressions],\n    )",
+        },
+        {
+          heading: "The fix",
+          body: "One call to the existing expr.unnest() helper, which strips the Paren before re-wrapping and makes the rewrite a fixed point. I deliberately did not add a new helper or reshape the guard: the first pass produces byte-identical output to before, so every expected value already in the suite still holds and the reviewer can see there is no regression without running anything.",
+        },
+        {
+          heading: "Outcome",
+          body: "Merged by the maintainer about a day after opening, CI green across Python 3.9 to 3.14. Final diff: one line of parser change plus two test assertions covering the second pass — the ones that would have caught the bug in the first place.",
+        },
+        {
+          heading: "What I took from it",
+          body: "A round-trip property test finds a class of bug that example-based tests structurally cannot, because the assertion is about the relationship between two runs rather than any single expected output. The same session also taught me the opposite lesson: a second PR of mine was closed because the SQL that triggered the bug was not valid in the real engine, only in sqlglot's deliberately permissive parser. A defect is worth fixing once you have shown a real database accepts the input that reaches it — that check now comes first.",
+        },
+      ],
+      links: [
+        { label: "PR #8185", href: "https://github.com/tobymao/sqlglot/pull/8185" },
+        {
+          label: "Merge commit",
+          href: "https://github.com/tobymao/sqlglot/commit/6874e1c4bfa398d8dc2b4310fcadd304a0715d16",
+        },
+      ],
+    },
+  },
+  {
+    project: "sqlglot",
+    org: "tobymao · SQL parser & transpiler",
+    scale: "9.5k+ stars",
+    date: "August 2026",
+    title: "Merged PR #8223 — DROP TABLE could only parse one table",
+    description:
+      "DROP TABLE t1, t2 is documented grammar in MySQL, PostgreSQL and SQL Server, and sqlglot rejected it outright in every dialect. The parser change is small; the work was choosing a representation that did not break the ALTER statement path, which routes through the same function.",
+    link: "https://github.com/tobymao/sqlglot/pull/8223",
+    tags: ["Python", "Parsers & compilers", "SQL", "Regression analysis"],
+    status: { label: "Merged", tone: "merged" },
+    caseStudy: {
+      stack: ["Python", "sqlglot AST", "mypy", "ruff", "GitHub Actions"],
+      sections: [
+        {
+          heading: "The problem",
+          body: "An issue was filed reporting that MySQL's DROP TABLE t1, t2 raised a ParseError. Before touching anything I checked two things. First, whether it was actually MySQL-specific — it was not, the same input failed in every dialect I tried, which put the defect in the shared base parser rather than the MySQL one. Second, whether the input was real SQL at all: MySQL 8.4, PostgreSQL 17 and SQL Server all document a comma-separated list in that position. Both answers had to hold before the fix was worth writing.",
+          code: "ParseError: Invalid expression / Unexpected token. Line 1, Col: 14.\n  DROP TABLE t1, t2\n\nmysql / postgres / tsql / duckdb / snowflake / default  →  all fail identically",
+        },
+        {
+          heading: "Why it was not a one-liner",
+          body: "The parser read a single table into the node's `this` slot and stopped at the comma. The obvious fix — reuse the node's existing `expressions` list — is wrong: the generator prints that list inside parentheses, because it exists to hold type signatures like DROP FUNCTION f(INT, INT). Putting tables there emits DROP TABLE t1 (t2). The next idea, moving every table into a new list and leaving `this` empty, crashes the T-SQL generator, which reaches into `expression.this` directly to strip the catalog off a view name.",
+        },
+        {
+          heading: "The landmine",
+          body: "The function I was changing is also called from the ALTER path, and ALTER parses its own actions as a comma-separated list. Making DROP greedily consume commas would have made it swallow the next action and break ALTER TABLE t DROP COLUMN a, DROP COLUMN b — syntax that already works and is already covered by a fixture in the suite. Finding that meant grepping for every caller of the function rather than reasoning only about my own input. Gating the new list on kind == \"TABLE\" leaves the ALTER path untouched, since its actions are always COLUMN, CONSTRAINT or PARTITION.",
+        },
+        {
+          heading: "The design",
+          body: "Rather than invent a shape, I looked for how the codebase already models this. exp.Delete carries a `tables` argument for MySQL's multiple-table DELETE syntax, so exp.Drop got the same argument under the same name. `this` keeps holding the first table, which leaves every dialect override that reaches for it working unchanged, and the generator only touches `this` when the list is non-empty — so single-table output stays byte-for-byte identical and the regression surface is provably zero.",
+          code: "# sqlglot/parser.py\n# MySQL, Postgres and T-SQL accept a list of tables here. This is restricted to TABLE\n# because ALTER parses its actions with _parse_csv, so consuming the comma for kinds\n# like COLUMN would swallow the next action, e.g. ALTER TABLE t DROP a, DROP b\ntables = (\n    self._parse_csv(lambda: self._parse_table_parts(schema=True))\n    if kind == \"TABLE\" and self._match(TokenType.COMMA)\n    else None\n)",
+        },
+        {
+          heading: "Verification",
+          body: "20 added lines across 5 files, no deletions. Before writing anything I captured the existing output for the single-table, IF EXISTS, CASCADE, PURGE, quoted-identifier and DROP FUNCTION forms, then re-checked each one after — the cheapest regression proof there is. The full suite passes at 1,229 tests and 19,320 subtests, mypy is clean across 183 source files, and ruff reports the same error count before and after, so the diff introduces none. CI is green on Python 3.9 through 3.14.",
+        },
+        {
+          heading: "Scope discipline",
+          body: "PostgreSQL also allows a comma-separated list for DROP VIEW, DROP INDEX and DROP SEQUENCE, and covering all of them was tempting. I left them out and said so in the PR: VIEW in particular would drag in that T-SQL generator override, and bundling unrelated changes is the pattern I had already watched get PRs closed in this repository. One reviewable change, with the follow-up offered rather than assumed.",
+        },
+        {
+          heading: "Outcome",
+          body: "Approved and merged about four hours after opening, with no review comments — the design questions a reviewer would have raised were answered in the PR body before they had to ask them. Second merged contribution to the project in a week.",
+        },
+      ],
+      links: [
+        { label: "PR #8223", href: "https://github.com/tobymao/sqlglot/pull/8223" },
+        { label: "Issue #8222", href: "https://github.com/tobymao/sqlglot/issues/8222" },
+        {
+          label: "Merge commit",
+          href: "https://github.com/tobymao/sqlglot/commit/038f015992d3",
+        },
+      ],
+    },
+  },
   {
     project: "docling",
     org: "docling-project · IBM",
@@ -40,7 +165,44 @@ export const openSource = [
       "A ValueError reported against v2.57.0 had sat unreproduced for ten months. I showed the traceback could not have come from that version: the failing line number maps to code deleted by PR #2458, so the reporting environment was running a stale module in a long-lived uvicorn process. To rule out a real defect I also drove MarkdownDocumentBackend and DoclingDocument.concatenate over nine markdown shapes a VLM plausibly emits — nested lists, tables, mixed pages, inline images, code blocks — on both the reported stack and current main. Nothing reproduced. A maintainer closed the issue on that analysis.",
     link: "https://github.com/docling-project/docling/issues/2476#issuecomment-5288696027",
     tags: ["Python", "Root-cause analysis", "Issue triage"],
+    status: { label: "Closed on my analysis", tone: "closed" },
+    caseStudy: {
+      stack: ["Python", "docling", "uvicorn", "Git archaeology"],
+      sections: [
+        {
+          heading: "The problem",
+          body: "An issue reported ValueError: Can not append a child with children from docling's VLM pipeline, pinned to v2.57.0. It had been open ten months with nobody able to reproduce it. The temptation with a report like that is to go hunting for the edge-case document. I started somewhere else — with whether the evidence in the report was internally consistent.",
+        },
+        {
+          heading: "The forensics",
+          body: "A traceback names a file and a line number. I checked out the exact tag the reporter named and read what was actually on that line. It did not match: the code the traceback describes had been deleted by PR #2458, which landed before that tag. A traceback cannot come from code that is not in the build, so the reporting environment was not running the version it claimed — a long-lived uvicorn process holding a stale module in memory explains it exactly.",
+        },
+        {
+          heading: "Ruling out a real defect",
+          body: "Showing the report was inconsistent is not the same as showing there is no bug, so I drove MarkdownDocumentBackend and DoclingDocument.concatenate directly over nine markdown shapes a vision-language model plausibly emits — nested lists, tables, mixed pages, inline images, fenced code blocks — against both the reported stack and current main. Nothing reproduced on either.",
+        },
+        {
+          heading: "Outcome",
+          body: "A maintainer agreed with the analysis and closed the issue. No patch: the right outcome here was retiring a ten-month-old ghost from the tracker with enough evidence that it stays retired.",
+        },
+      ],
+      links: [
+        {
+          label: "My analysis",
+          href: "https://github.com/docling-project/docling/issues/2476#issuecomment-5288696027",
+        },
+        { label: "Issue #2476", href: "https://github.com/docling-project/docling/issues/2476" },
+      ],
+    },
   },
+];
+
+// Headline numbers for the open-source section. Every one of these is checkable:
+// gh pr list --repo tobymao/sqlglot --author sanket801036 --state merged
+export const openSourceStats = [
+  { value: "2", label: "Pull requests merged upstream" },
+  { value: "0", label: "Changes requested in review — both merged as submitted" },
+  { value: "74k+", label: "GitHub stars across the projects involved" },
 ];
 
 export const stats = [
