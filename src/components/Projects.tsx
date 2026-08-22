@@ -1,4 +1,5 @@
 import { ArrowUpRight, KeyRound } from "lucide-react";
+import DemoLauncher from "./DemoLauncher";
 import Section, { Reveal } from "./Section";
 import { projects } from "../data/portfolio";
 
@@ -59,14 +60,7 @@ export default function Projects() {
 
               {p.demoUrl && (
                 <div className="mt-6 md:ml-[calc(7rem+2rem)]">
-                  <a
-                    href={p.demoUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="link inline-flex items-center gap-1 text-sm font-medium"
-                  >
-                    Live demo <ArrowUpRight size={14} />
-                  </a>
+                  <DemoLauncher url={p.demoUrl} />
 
                   {p.demoCredentials && p.demoCredentials.length > 0 && (
                     <div className="mt-3 inline-block rounded-lg border border-rule bg-paper-raised px-4 py-3">
