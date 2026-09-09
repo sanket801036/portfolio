@@ -366,8 +366,12 @@ export const projects: Project[] = [
     title: "College ERP Portal",
     year: "2026",
     description:
-      "Took over a legacy Django 2.1 / MySQL college ERP and rebuilt it into something a college could actually run: PostgreSQL, Django 5.2, role-based access for students, teachers and admins, and 727 tests covering the rules that matter. Deployed to Render via a Blueprint (gunicorn, whitenoise, managed Postgres).",
+      "Took over a legacy Django 2.1 / MySQL college ERP and rebuilt it into something a college could actually run — PostgreSQL, Django 5.2, role-based access for students, teachers and admins — then added a retrieval assistant on top that answers from the college’s own handbook and course material. 1,000+ tests cover the rules that matter. Deployed to Render via a Blueprint (gunicorn, whitenoise, Neon Postgres with pgvector).",
     highlights: [
+      "A retrieval assistant grounded in the college’s own material: every answer cites the passage it used, and a question the documents do not cover is refused — without a generation call at all, because nothing cleared the similarity floor. The refusal path is the feature.",
+      "The security boundary is the retrieval scope, not the prompt filter. I measured Meta’s prompt-injection classifier against real traffic first: seven ordinary questions all scored 0.0004, five of seven injections scored above 0.99, and two scored 0.157 and 0.0009 — the second indistinguishable from a question about fees. So it is a cheap first filter, and what actually keeps one student out of another’s coursework is that retrieval never puts that material in the candidate set.",
+      "pgvector on the Postgres already there rather than a second database. Vectors are pinned to 768 dimensions instead of the model’s 3072 default because pgvector’s HNSW and IVFFlat indexes both cap at 2,000 — a wider column is unindexable and every query silently degrades to a sequential scan.",
+      "When the assistant has nothing, the question goes to a teacher, carrying what the assistant already said so it can be corrected rather than repeated. No way to close one without writing an answer. Voice runs entirely in the browser — no audio leaves the machine.",
       "Request-and-approve workflows with full audit trails — mark re-evaluation, leave applications (approved leave is excluded from the 75% attendance denominator, not counted as present) and attendance corrections.",
       "Self-service password reset over email OTP: hashed single-use codes, ten-minute expiry, attempt limits, request rate limiting, and identical responses whether or not the account exists.",
       "Notifications as data, not just mail — an in-app inbox plus idempotent scheduled digests for fee reminders, low-attendance warnings, released marks and notices; re-running the job never sends the same thing twice.",
@@ -376,7 +380,7 @@ export const projects: Project[] = [
       "Authorization, N+1 and data-loss bugs found by writing tests against the running app: query counts on the heaviest pages fell from 62 and 57 to 15 and 4.",
       "CI gates every push on ruff, pip-audit and a migrations check; Docker Compose for local Postgres; dark mode across the app.",
     ],
-    tags: ["Django 5.2", "PostgreSQL", "REST Framework", "Celery-free scheduling", "Docker", "GitHub Actions", "Render"],
+    tags: ["Django 5.2", "PostgreSQL", "pgvector", "RAG", "Groq", "Gemini embeddings", "REST Framework", "Docker", "GitHub Actions", "Render"],
     link: "https://github.com/sanket801036/College-ERP-master",
     demoUrl: "https://college-erp-rlyy.onrender.com",
     demoCredentials: [
