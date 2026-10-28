@@ -276,7 +276,7 @@ export const skillGroups = [
   },
   {
     label: "Data & Vector Stores",
-    skills: ["MySQL", "PostgreSQL", "Redis", "FAISS", "Pinecone", "AstraDB", "Elasticsearch"],
+    skills: ["MySQL", "PostgreSQL", "pgvector", "Redis", "FAISS", "Pinecone", "AstraDB", "Elasticsearch"],
   },
   {
     label: "Cloud & DevOps",
@@ -327,7 +327,7 @@ export const experiences = [
       "Built the Sutton production website on React, Flask and MySQL with secure authentication and role-based access.",
       "Architected Shooting Software, a studio workflow platform covering Warehouse Challan, Sourcing, Mood Board, Studio Dispatch, QC, Editing and Launch with SKU/barcode tracking, SLA alerts and PMS/ERP auto-upload.",
     ],
-    tags: ["React", "Flask", "MySQL", "Selenium", "React Native", "FAISS", "Computer Vision"],
+    tags: ["React", "Flask", "FastAPI", "PostgreSQL", "MySQL", "Selenium", "React Native", "FAISS", "Computer Vision"],
   },
   {
     company: "XRDA3 Technologies Pvt. Ltd.",
@@ -393,12 +393,27 @@ export const projects: Project[] = [
     featured: true,
   },
   {
+    title: "Shooting ERP",
+    year: "2026",
+    description:
+      "Workflow ERP for a fashion photo-shoot pipeline, rebuilt against a live 72-table PostgreSQL database after the original source code was lost. Each garment is tracked by barcode through ~15 modules — challan entry, selection, QC, mood board, stitching, studio, shoot, editing and launch — with ~120 REST APIs and 31 screens for 12 user roles.",
+    highlights: [
+      "Schema-first rebuild: models mirror the existing tables and enums, and new schema ships as idempotent DDL on startup, so the shared production database is never migrated out from under the other backend that runs on it.",
+      "Most screens are one config-driven component: a view registry declares each module's filters, per-piece actions and bulk workflows, so a new module is configuration rather than a new page.",
+      "SLA alerts computed from per-stage timestamps, a background catalog sync from a third-party API, and every write recorded in an audit log with the acting user.",
+      "Pagination and image thumbnails cut the heaviest API responses from 40-50 MB to a few hundred KB.",
+    ],
+    tags: ["FastAPI", "SQLAlchemy", "PostgreSQL", "React", "Tailwind CSS", "Nginx", "Linux"],
+    link: "https://github.com/sanket801036",
+    featured: true,
+  },
+  {
     title: "Multi-AI Agent System",
     year: "2025",
     description:
       "Enterprise multi-agent platform built on FastAPI, LangChain and LangGraph. Containerised with Docker and deployed to AWS ECS through a Jenkins pipeline gated by SonarQube code-quality checks.",
     tags: ["FastAPI", "LangChain", "LangGraph", "Docker", "Jenkins", "AWS ECS", "SonarQube"],
-    link: "https://github.com/sanket801036",
+    link: "https://github.com/sanket801036/MULTI-AI-AGENT-PROJECT",
     featured: true,
   },
   {
@@ -421,6 +436,15 @@ export const projects: Project[] = [
     featured: true,
   },
   {
+    title: "MailFlow",
+    year: "2026",
+    description:
+      "AI-powered Gmail triage dashboard: classifies incoming customer email and drafts replies for a human to approve before anything is sent, with failover across LLM providers.",
+    tags: ["Python", "FastAPI", "LLM APIs", "RAG", "PostgreSQL", "Gmail API"],
+    link: "https://github.com/sanket801036/MailFlow",
+    featured: false,
+  },
+  {
     title: "Smart Lock & Face Recognition",
     year: "2024",
     description:
@@ -435,7 +459,7 @@ export const projects: Project[] = [
     description:
       "PaddleOCR and fine-tuned LayoutLMv3 pipeline that turns multilingual menu images into structured data at 95%+ accuracy.",
     tags: ["PaddleOCR", "LayoutLMv3", "Flask"],
-    link: "https://github.com/sanket801036",
+    link: "https://github.com/sanket801036/menu_card_data_extractor",
     featured: false,
   },
   {
