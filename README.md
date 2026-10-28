@@ -53,4 +53,4 @@ publishes it to GitHub Pages.
 
 ---
 
-[GitHub](https://github.com/sanket801036) · [LinkedIn](https://www.linkedin.com/in/sanket-kolhe)
+[GitHub](https://github.com/sanket801036) · [LinkedIn](https://www.linkedin.com/in/sanket-dev/)

@@ -5,7 +5,7 @@ export const profile = {
   email: "sanketkolhe801036@gmail.com",
   phone: "+91 8010364260",
   github: "https://github.com/sanket801036",
-  linkedin: "https://www.linkedin.com/in/sanket-kolhe",
+  linkedin: "https://www.linkedin.com/in/sanket-dev/",
   // Drop a resume.pdf into public/ and set this to "resume.pdf" to show the resume link.
   resumeUrl: "resume.pdf",
   lead:
