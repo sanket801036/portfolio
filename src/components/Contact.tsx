@@ -18,7 +18,7 @@ const channels = [
   },
   { label: "WhatsApp", value: profile.phone, href: whatsappHref, icon: WhatsAppIcon },
   { label: "GitHub", value: "sanket801036", href: profile.github, icon: GithubIcon },
-  { label: "LinkedIn", value: "sanket-kolhe", href: profile.linkedin, icon: LinkedinIcon },
+  { label: "LinkedIn", value: "sanket-dev", href: profile.linkedin, icon: LinkedinIcon },
 ];
 
 export default function Contact() {
