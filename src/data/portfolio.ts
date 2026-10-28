@@ -410,6 +410,7 @@ export const projects: Project[] = [
     link: "https://github.com/sanket801036",
     featured: true,
     metrics: [{ value: "15", label: "Modules" }, { value: "~120", label: "REST APIs" }, { value: "31", label: "Screens" }, { value: "12", label: "User roles" }],
+    screenshots: Array.from({ length: 14 }, (_, k) => `projects/shooting-erp/${k + 1}.webp`),
   },
   {
     title: "Multi-AI Agent System",
