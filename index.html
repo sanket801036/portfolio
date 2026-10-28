@@ -4,8 +4,7 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#fbfaf7" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#0d0d0b" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#fbfaf7" />
     <meta
       name="description"
       content="Sanket Kolhe — Python full-stack and AI engineer. Building RAG systems, computer-vision pipelines and the cloud infrastructure that keeps them in production."
@@ -24,11 +23,12 @@
     <title>Sanket Kolhe — Python Full-Stack & AI Engineer</title>
     <script>
       // Applied before first paint so the page never flashes the wrong theme.
+      // Light by default; dark only after the visitor picks it with the toggle.
       (function () {
-        var stored = localStorage.getItem("theme");
-        var dark = stored
-          ? stored === "dark"
-          : window.matchMedia("(prefers-color-scheme: dark)").matches;
+        var dark = false;
+        try {
+          dark = localStorage.getItem("theme-choice") === "dark";
+        } catch (e) {}
         document.documentElement.classList.toggle("dark", dark);
       })();
     </script>
