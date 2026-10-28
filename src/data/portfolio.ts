@@ -462,10 +462,11 @@ export const projects: Project[] = [
     title: "Fabric Dispatch Mobile App",
     year: "2026",
     description:
-      "React Native (Expo) app for real-time fabric dispatch verification, backed by a Flask REST API.",
+      "React Native (Expo) app for real-time fabric dispatch verification, backed by a Flask REST API. Warehouse staff scan lot QR codes against a vendor's purchase order to receive material, or scan returns back to the vendor; a web dashboard shows verified and rejected scans, returns and app users.",
     tags: ["React Native", "Expo", "REST API", "Flask"],
     link: "https://github.com/sanket801036",
     featured: false,
+    screenshots: [1, 2, 3, 4, 5, 6, 7, 8].map((n) => `projects/fabric-dispatch/${n}.webp`),
   },
   {
     title: "Flipkart Recommendation System",
