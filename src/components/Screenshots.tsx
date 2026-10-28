@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import type { Screenshot } from "../data/portfolio";
 
-type Props = { images: string[]; title: string; compact?: boolean };
+type Props = { images: Screenshot[]; title: string; compact?: boolean };
 
-const src = (path: string) => `${import.meta.env.BASE_URL}${path}`;
+const url = (path: string) => `${import.meta.env.BASE_URL}${path}`;
 
 export default function Screenshots({ images, title, compact = false }: Props) {
   const [open, setOpen] = useState<number | null>(null);
@@ -20,41 +21,54 @@ export default function Screenshots({ images, title, compact = false }: Props) {
     return () => window.removeEventListener("keydown", onKey);
   }, [open, images.length]);
 
+  const shot = open === null ? null : images[open];
+
   return (
     <>
       <div className={`grid gap-2 ${compact ? "grid-cols-4" : "grid-cols-2 sm:grid-cols-4"}`}>
         {images.map((img, i) => (
           <button
-            key={img}
+            key={img.src}
             type="button"
             onClick={() => setOpen(i)}
+            title={img.caption}
             className="group/shot overflow-hidden rounded-md border border-rule bg-paper-raised"
-            aria-label={`Open ${title} screenshot ${i + 1}`}
+            aria-label={`Open screenshot ${i + 1}: ${img.caption}`}
           >
             <img
-              src={src(img)}
-              alt={`${title} screenshot ${i + 1}`}
+              src={url(img.src)}
+              alt={img.caption}
               loading="lazy"
               className="aspect-video w-full object-cover object-top transition-transform duration-300 group-hover/shot:scale-105"
             />
           </button>
         ))}
       </div>
+      <p className="label mt-2">Click a screenshot for details</p>
 
-      {open !== null && (
+      {shot && open !== null && (
         <div
           role="dialog"
           aria-modal="true"
           aria-label={`${title} screenshots`}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-4"
+          className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-4 bg-black/90 p-4"
           onClick={() => setOpen(null)}
         >
           <img
-            src={src(images[open])}
-            alt={`${title} screenshot ${open + 1}`}
-            className="max-h-[90vh] max-w-full rounded-lg shadow-2xl"
+            src={url(shot.src)}
+            alt={shot.caption}
+            className="max-h-[75vh] max-w-full rounded-lg shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           />
+          <div
+            className="max-w-3xl rounded-lg bg-white/10 px-4 py-3 text-center"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <p className="text-xs uppercase tracking-wider text-white/60">
+              {title} · {open + 1} / {images.length}
+            </p>
+            <p className="mt-1 text-sm leading-relaxed text-white">{shot.caption}</p>
+          </div>
           <button
             type="button"
             onClick={() => setOpen(null)}
@@ -71,7 +85,7 @@ export default function Screenshots({ images, title, compact = false }: Props) {
                   e.stopPropagation();
                   setOpen((open - 1 + images.length) % images.length);
                 }}
-                className="absolute left-4 rounded-full bg-white/10 p-2 text-white hover:bg-white/20"
+                className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-white/10 p-2 text-white hover:bg-white/20"
                 aria-label="Previous screenshot"
               >
                 <ChevronLeft size={22} />
@@ -82,14 +96,11 @@ export default function Screenshots({ images, title, compact = false }: Props) {
                   e.stopPropagation();
                   setOpen((open + 1) % images.length);
                 }}
-                className="absolute right-4 rounded-full bg-white/10 p-2 text-white hover:bg-white/20"
+                className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-white/10 p-2 text-white hover:bg-white/20"
                 aria-label="Next screenshot"
               >
                 <ChevronRight size={22} />
               </button>
-              <p className="absolute bottom-4 text-sm text-white/70">
-                {open + 1} / {images.length}
-              </p>
             </>
           )}
         </div>

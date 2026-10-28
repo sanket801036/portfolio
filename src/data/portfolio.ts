@@ -347,6 +347,13 @@ export const experiences = [
 
 export type DemoCredential = { role: string; username: string; password: string };
 
+/** One screenshot plus what an interviewer should notice in it. */
+export type Screenshot = { src: string; caption: string };
+
+// Files live at public/projects/<slug>/1.webp, 2.webp, ... in caption order.
+const shots = (slug: string, captions: string[]): Screenshot[] =>
+  captions.map((caption, i) => ({ src: `projects/${slug}/${i + 1}.webp`, caption }));
+
 export type Project = {
   title: string;
   year: string;
@@ -359,8 +366,8 @@ export type Project = {
   featured: boolean;
   demoUrl?: string;
   demoCredentials?: DemoCredential[];
-  /** Paths under public/, shown as a thumbnail strip with a lightbox. */
-  screenshots?: string[];
+  /** Shown as a thumbnail strip; the lightbox shows each caption. */
+  screenshots?: Screenshot[];
   /** Headline numbers shown on the card. Keep them checkable. */
   metrics?: { value: string; label: string }[];
 };
@@ -410,7 +417,22 @@ export const projects: Project[] = [
     link: "https://github.com/sanket801036",
     featured: true,
     metrics: [{ value: "15", label: "Modules" }, { value: "~120", label: "REST APIs" }, { value: "31", label: "Screens" }, { value: "12", label: "User roles" }],
-    screenshots: Array.from({ length: 14 }, (_, k) => `projects/shooting-erp/${k + 1}.webp`),
+    screenshots: shots("shooting-erp", [
+      "Challan entry: vendor, bill upload and quantity per category. Every piece gets a barcode sticker and a photo slot before it moves on to Selection.",
+      "Hold: pieces parked during selection, with an SLA badge once they wait too long. GR or SELECT them one by one or in bulk.",
+      "Selection: selected pieces get a data-entry form, bulk autofill and bulk instructions, then go to QC, Mood Board or Garment Work.",
+      "GR: pieces marked GR during selection, each with a GR reason. Western pieces can be sent on to GR Selected.",
+      "QC: accept or reject, and a reason is required to reject. Separate queues for selected pieces, shoot availability, AI shoots and shooting receive.",
+      "Mood Board: pieces waiting for shoot planning. From here they go to stitching, or are issued to the studio in bulk.",
+      "Mood board form: shoot type and mode, studio and partners, start date, rate, model details, concept and courier.",
+      "Stitching data entry: tailor, rate per piece and total, send and expected dates, and the tailor's bill upload.",
+      "Shooting Receive: pieces back from the studio, with their challan and how long they have waited. Shoot media is uploaded here.",
+      "Editing: assign the photo editor, video editor and brand, and track photo, video and listing status per piece.",
+      "Launch Preparation: QC-accepted pieces get their launch data (rates, stock, product details) and then go to editing in bulk.",
+      "Launch entry: product, rates and stock, then size-wise fields for each section (kurti, bottom, dupatta). Marked fields autofill across sizes.",
+      "Product Launch: launched SKUs with AI, model and reshoot counts. Launch and reshoot data can be uploaded from Excel templates.",
+      "Launch data: every launch entry joined with its mood board details in one table, filterable and exportable to CSV.",
+    ]),
   },
   {
     title: "Multi-AI Agent System",
@@ -429,7 +451,12 @@ export const projects: Project[] = [
     tags: ["Selenium", "undetected-chromedriver", "BeautifulSoup", "Flask", "PostgreSQL", "openpyxl"],
     link: "https://github.com/sanket801036",
     featured: true,
-    screenshots: [1, 2, 3, 4].map((n) => `projects/scraping-portal/${n}.webp`),
+    screenshots: shots("scraping-portal", [
+      "Dashboard: batch counts, products tracked per marketplace (62,564 in total), recent batches with their approval status, and live stock and price alerts.",
+      "Upload Excel: pick Myntra, Flipkart or Amazon, upload an .xlsx of product URLs, then choose one-time or scheduled, and full data or price only.",
+      "Live status: one-time and daily scheduled batch slots for each marketplace, refreshing every 3 seconds, plus the recently completed batches.",
+      "Filters and export: search scraped products by brand, SKU, seller, rating, sale %, dates and more, and export the result to Excel.",
+    ]),
     metrics: [{ value: "10k+", label: "Records a day" }, { value: "62k+", label: "Products tracked" }, { value: "3", label: "Marketplaces" }, { value: "324", label: "Batches run" }],
   },
   {
@@ -479,7 +506,12 @@ export const projects: Project[] = [
     tags: ["OpenCLIP (ViT-H-14)", "FAISS", "OpenCV", "rembg", "Flask", "PostgreSQL"],
     link: "https://github.com/sanket801036",
     featured: false,
-    screenshots: [1, 2, 3, 4].map((n) => `projects/cloth-search/${n}.webp`),
+    screenshots: shots("cloth-search", [
+      "Auto index scheduler: rebuilds the search collection from the catalog every night at a set time. A catalog Excel can also be indexed on demand.",
+      "Search flow: pick a collection, initialise the pipeline and upload a query photo. Preprocessing handles background, noise, lighting and colour.",
+      "Results: 200 similar items ranked by a combined score, with the CLIP and colour share shown for each match.",
+      "Side by side: the phone photo next to the matched catalog image (65.7% match: CLIP 38%, colour 88%). Arrow keys browse the results.",
+    ]),
     metrics: [{ value: "Top 300", label: "FAISS candidates re-ranked" }, { value: "Nightly", label: "Re-index, 2 versions kept" }],
   },
   {
@@ -490,7 +522,9 @@ export const projects: Project[] = [
     tags: ["React", "JavaScript", "Excel", "Tally", "GST"],
     link: "https://github.com/sanket801036",
     featured: false,
-    screenshots: ["projects/flipkart-merger/1.webp"],
+    screenshots: shots("flipkart-merger", [
+      "Upload screen: required column names for the PO file and the lot file are checked before anything is generated, zero-value bills are blocked, and the bill series picks the next number.",
+    ]),
   },
   {
     title: "Fabric Dispatch Mobile App",
@@ -500,7 +534,16 @@ export const projects: Project[] = [
     tags: ["React Native (Expo)", "Flask", "PostgreSQL", "Odoo XML-RPC", "Nginx"],
     link: "https://github.com/sanket801036",
     featured: false,
-    screenshots: [1, 2, 3, 4, 5, 6, 7, 8].map((n) => `projects/fabric-dispatch/${n}.webp`),
+    screenshots: shots("fabric-dispatch", [
+      "App login: the same account works in the mobile app and the web dashboard.",
+      "Choose the scan: receive and verify incoming fabric, or return fabric to the vendor.",
+      "Receive flow: pick the vendor, then the purchase order whose fabric lots are being scanned.",
+      "Return flow: only purchase orders with an open return are listed.",
+      "Return reference: demand, returned and pending metres for each return document.",
+      "Web dashboard login.",
+      "Material Verify: every scan with PO, challan, lot QR, quantity and pending balance; 3,616 verified and 188 rejected. The scanning user's name is blurred.",
+      "Return Fabric: returned-fabric scans by vendor, taka number and source document, exportable to CSV.",
+    ]),
     metrics: [{ value: "3,600+", label: "Scans verified" }, { value: "179", label: "Purchase orders" }],
   },
   {
