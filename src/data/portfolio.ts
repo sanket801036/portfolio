@@ -359,6 +359,8 @@ export type Project = {
   featured: boolean;
   demoUrl?: string;
   demoCredentials?: DemoCredential[];
+  /** Paths under public/, shown as a thumbnail strip with a lightbox. */
+  screenshots?: string[];
 };
 
 export const projects: Project[] = [
@@ -407,6 +409,7 @@ export const projects: Project[] = [
     tags: ["Selenium", "BeautifulSoup", "Flask", "MySQL", "openpyxl", "Anti-bot"],
     link: "https://github.com/sanket801036",
     featured: true,
+    screenshots: [1, 2, 3, 4].map((n) => `projects/scraping-portal/${n}.webp`),
   },
   {
     title: "Production RAG Chatbot",
@@ -443,6 +446,17 @@ export const projects: Project[] = [
     tags: ["Computer Vision", "FAISS", "Pinecone", "Flask"],
     link: "https://github.com/sanket801036",
     featured: false,
+    screenshots: [1, 2, 3, 4].map((n) => `projects/cloth-search/${n}.webp`),
+  },
+  {
+    title: "Flipkart Merger Pro",
+    year: "2026",
+    description:
+      "Turns a Flipkart purchase order and a lot file into a Tally-ready sales bill. Validates required columns, GSTIN and file names before generating anything, pulls the next bill number from the database per invoice series, and blocks zero-value bills automatically.",
+    tags: ["Python", "Excel automation", "Tally", "GST"],
+    link: "https://github.com/sanket801036",
+    featured: false,
+    screenshots: ["projects/flipkart-merger/1.webp"],
   },
   {
     title: "Fabric Dispatch Mobile App",

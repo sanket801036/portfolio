@@ -1,5 +1,6 @@
 import { ArrowUpRight, KeyRound } from "lucide-react";
 import DemoLauncher from "./DemoLauncher";
+import Screenshots from "./Screenshots";
 import Section, { Reveal } from "./Section";
 import { projects } from "../data/portfolio";
 
@@ -58,6 +59,12 @@ export default function Projects() {
                 </div>
               </a>
 
+              {p.screenshots && p.screenshots.length > 0 && (
+                <div className="mt-6 max-w-2xl md:ml-[calc(7rem+2rem)]">
+                  <Screenshots images={p.screenshots} title={p.title} />
+                </div>
+              )}
+
               {p.demoUrl && (
                 <div className="mt-6 md:ml-[calc(7rem+2rem)]">
                   <DemoLauncher url={p.demoUrl} />
@@ -93,19 +100,26 @@ export default function Projects() {
       <div className="mt-6 grid gap-px overflow-hidden rounded-lg bg-rule sm:grid-cols-2">
         {rest.map((p, i) => (
           <Reveal key={p.title} delay={i * 0.04}>
-            <a
-              href={p.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex h-full flex-col bg-paper p-6 transition-colors hover:bg-accent-soft"
-            >
-              <div className="flex items-baseline justify-between gap-3">
-                <h4 className="font-medium transition-colors group-hover:text-accent">{p.title}</h4>
-                <span className="label shrink-0">{p.year}</span>
-              </div>
-              <p className="mt-3 flex-1 text-sm leading-relaxed text-ink-muted">{p.description}</p>
-              <p className="tag mt-4">{p.tags.join("  ·  ")}</p>
-            </a>
+            <div className="flex h-full flex-col bg-paper transition-colors hover:bg-accent-soft">
+              <a
+                href={p.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex flex-1 flex-col p-6"
+              >
+                <div className="flex items-baseline justify-between gap-3">
+                  <h4 className="font-medium transition-colors group-hover:text-accent">{p.title}</h4>
+                  <span className="label shrink-0">{p.year}</span>
+                </div>
+                <p className="mt-3 flex-1 text-sm leading-relaxed text-ink-muted">{p.description}</p>
+                <p className="tag mt-4">{p.tags.join("  ·  ")}</p>
+              </a>
+              {p.screenshots && p.screenshots.length > 0 && (
+                <div className="px-6 pb-6">
+                  <Screenshots images={p.screenshots} title={p.title} compact />
+                </div>
+              )}
+            </div>
           </Reveal>
         ))}
       </div>
