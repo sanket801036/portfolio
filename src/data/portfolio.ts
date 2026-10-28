@@ -452,8 +452,8 @@ export const projects: Project[] = [
     title: "Flipkart Merger Pro",
     year: "2026",
     description:
-      "Turns a Flipkart purchase order and a lot file into a Tally-ready sales bill. Validates required columns, GSTIN and file names before generating anything, pulls the next bill number from the database per invoice series, and blocks zero-value bills automatically.",
-    tags: ["Python", "Excel automation", "Tally", "GST"],
+      "React single-page app that merges two Excel files — a Flipkart purchase order and a lot file — into a third, Tally-ready sales bill. Validates required columns, GSTIN and file names before generating anything, pulls the next bill number per invoice series, and blocks zero-value bills automatically.",
+    tags: ["React", "JavaScript", "Excel", "Tally", "GST"],
     link: "https://github.com/sanket801036",
     featured: false,
     screenshots: ["projects/flipkart-merger/1.webp"],
