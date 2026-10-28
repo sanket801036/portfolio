@@ -38,6 +38,17 @@ export default function Projects() {
                     </h3>
                     <p className="mt-3 max-w-2xl leading-relaxed text-ink-muted">{p.description}</p>
 
+                    {p.metrics && p.metrics.length > 0 && (
+                      <dl className="mt-5 flex max-w-2xl flex-wrap gap-x-8 gap-y-3">
+                        {p.metrics.map((m) => (
+                          <div key={m.label}>
+                            <dt className="display text-2xl text-accent sm:text-3xl">{m.value}</dt>
+                            <dd className="label mt-0.5">{m.label}</dd>
+                          </div>
+                        ))}
+                      </dl>
+                    )}
+
                     {p.highlights && p.highlights.length > 0 && (
                       <ul className="mt-4 max-w-2xl space-y-1.5">
                         {p.highlights.map((h) => (
@@ -112,6 +123,16 @@ export default function Projects() {
                   <span className="label shrink-0">{p.year}</span>
                 </div>
                 <p className="mt-3 flex-1 text-sm leading-relaxed text-ink-muted">{p.description}</p>
+                {p.metrics && p.metrics.length > 0 && (
+                  <dl className="mt-4 flex flex-wrap gap-x-6 gap-y-2">
+                    {p.metrics.map((m) => (
+                      <div key={m.label}>
+                        <dt className="text-lg font-semibold text-accent">{m.value}</dt>
+                        <dd className="label">{m.label}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                )}
                 <p className="tag mt-4">{p.tags.join("  ·  ")}</p>
               </a>
               {p.screenshots && p.screenshots.length > 0 && (

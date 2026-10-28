@@ -7,11 +7,11 @@ export const profile = {
   github: "https://github.com/sanket801036",
   linkedin: "https://www.linkedin.com/in/sanket-kolhe",
   // Drop a resume.pdf into public/ and set this to "resume.pdf" to show the resume link.
-  resumeUrl: "",
+  resumeUrl: "resume.pdf",
   lead:
     "I build RAG systems, computer-vision pipelines and the infrastructure that keeps them running in production.",
   summary:
-    "Python Full-Stack & AI Developer with 3 years of experience designing scalable web applications, AI-powered systems and automation solutions. I work across Django, Flask, FastAPI, React and MySQL — and ship them with Docker, Kubernetes, Jenkins, AWS and CI/CD pipelines. Day to day that means retrieval-augmented generation, OCR, face recognition, large-scale web scraping and vector search.",
+    "Python Full-Stack & AI Developer with 3 years of experience designing scalable web applications, AI-powered systems and automation solutions. I work across Django, Flask, FastAPI, React, PostgreSQL and MySQL — and ship them with Docker, Kubernetes, Jenkins, AWS and CI/CD pipelines. Day to day that means retrieval-augmented generation, OCR, face recognition, large-scale web scraping and vector search.",
 };
 
 // Short "what I'm on right now" strip under the hero. Keep this current —
@@ -324,10 +324,10 @@ export const experiences = [
       "Extracted 10+ attributes per product — multi-seller pricing, Buybox competition, Amazon BSR and star-rating distributions — feeding inventory pricing strategy.",
       "Developed an Image-RAG system for cloth similarity search using computer-vision embeddings, FAISS/Pinecone and Flask APIs.",
       "Shipped a Fabric Dispatch mobile app in React Native (Expo) backed by Flask REST APIs for real-time dispatch verification.",
-      "Built the Sutton production website on React, Flask and MySQL with secure authentication and role-based access.",
+      "Built the Sutton production website on React, Flask and PostgreSQL with secure authentication and role-based access.",
       "Architected Shooting Software, a studio workflow platform covering Warehouse Challan, Sourcing, Mood Board, Studio Dispatch, QC, Editing and Launch with SKU/barcode tracking, SLA alerts and PMS/ERP auto-upload.",
     ],
-    tags: ["React", "Flask", "FastAPI", "PostgreSQL", "MySQL", "Selenium", "React Native", "FAISS", "Computer Vision"],
+    tags: ["React", "Flask", "FastAPI", "PostgreSQL", "Selenium", "React Native", "FAISS", "Computer Vision"],
   },
   {
     company: "XRDA3 Technologies Pvt. Ltd.",
@@ -341,7 +341,7 @@ export const experiences = [
       "Built OCR menu-extraction APIs with PaddleOCR and a fine-tuned LayoutLMv3, reaching 95%+ accuracy across multilingual restaurant menus.",
       "Created scalable Selenium scraping pipelines that collected 2,000+ structured restaurant records with automated scheduling and validation.",
     ],
-    tags: ["Python", "Flask", "LangChain", "Docker", "Jenkins", "AWS"],
+    tags: ["Python", "Flask", "LangChain", "MySQL", "Docker", "Jenkins", "AWS"],
   },
 ];
 
@@ -361,6 +361,8 @@ export type Project = {
   demoCredentials?: DemoCredential[];
   /** Paths under public/, shown as a thumbnail strip with a lightbox. */
   screenshots?: string[];
+  /** Headline numbers shown on the card. Keep them checkable. */
+  metrics?: { value: string; label: string }[];
 };
 
 export const projects: Project[] = [
@@ -391,6 +393,7 @@ export const projects: Project[] = [
       { role: "Teacher", username: "testteach", password: "testpass123" },
     ],
     featured: true,
+    metrics: [{ value: "1,000+", label: "Tests" }, { value: "62 → 15", label: "Queries on the heaviest page" }, { value: "3", label: "User roles" }],
   },
   {
     title: "Shooting ERP",
@@ -403,9 +406,10 @@ export const projects: Project[] = [
       "SLA alerts computed from per-stage timestamps, a background catalog sync from a third-party API, and every write recorded in an audit log with the acting user.",
       "Pagination and image thumbnails cut the heaviest API responses from 40-50 MB to a few hundred KB.",
     ],
-    tags: ["FastAPI", "SQLAlchemy", "PostgreSQL", "React", "Tailwind CSS", "Nginx", "Linux"],
+    tags: ["FastAPI", "Pydantic", "SQLAlchemy", "PostgreSQL", "React", "Vite", "Tailwind CSS", "Nginx"],
     link: "https://github.com/sanket801036",
     featured: true,
+    metrics: [{ value: "15", label: "Modules" }, { value: "~120", label: "REST APIs" }, { value: "31", label: "Screens" }, { value: "12", label: "User roles" }],
   },
   {
     title: "Multi-AI Agent System",
@@ -421,35 +425,38 @@ export const projects: Project[] = [
     year: "2026",
     description:
       "In-house platform where teams upload XLSX sheets of target URLs and get back 10,000+ structured product records a day from Amazon, Flipkart and Myntra — multi-seller pricing, Buybox state, BSR and rating distributions.",
-    tags: ["Selenium", "BeautifulSoup", "Flask", "MySQL", "openpyxl", "Anti-bot"],
+    tags: ["Selenium", "undetected-chromedriver", "BeautifulSoup", "Flask", "PostgreSQL", "openpyxl"],
     link: "https://github.com/sanket801036",
     featured: true,
     screenshots: [1, 2, 3, 4].map((n) => `projects/scraping-portal/${n}.webp`),
+    metrics: [{ value: "10k+", label: "Records a day" }, { value: "62k+", label: "Products tracked" }, { value: "3", label: "Marketplaces" }, { value: "324", label: "Batches run" }],
   },
   {
     title: "Production RAG Chatbot",
     year: "2024",
     description:
-      "Retrieval-augmented chatbot for enterprise document search. Dockerised Flask APIs with FAISS retrieval and Trivy-scanned images, running on AWS App Runner at 99.9% uptime.",
-    tags: ["RAG", "LangChain", "FAISS", "Flask", "Docker", "AWS App Runner"],
+      "Retrieval-augmented chatbot for enterprise document search, containerised with Docker and running on AWS App Runner at 99.9% uptime.",
+    tags: ["Flask", "LangChain", "FAISS", "MySQL", "Docker", "AWS App Runner"],
     link: "https://github.com/sanket801036",
     featured: true,
+    metrics: [{ value: "99.9%", label: "Uptime on AWS App Runner" }],
   },
   {
     title: "MailFlow",
     year: "2026",
     description:
-      "AI-powered Gmail triage dashboard: classifies incoming customer email and drafts replies for a human to approve before anything is sent, with failover across LLM providers.",
-    tags: ["Python", "FastAPI", "LLM APIs", "RAG", "PostgreSQL", "Gmail API"],
+      "AI email triage and auto-reply for a shop inbox: classifies 100+ emails a day with JSON-schema structured outputs, drafts grounded replies with dry-run and approval modes, and fails over across 3 LLM providers.",
+    tags: ["FastAPI", "React", "PostgreSQL", "Gmail API", "Groq / Gemini / Mistral", "fastembed", "APScheduler"],
     link: "https://github.com/sanket801036/MailFlow",
     featured: false,
+    metrics: [{ value: "100+", label: "Emails a day" }, { value: "3", label: "LLM providers" }],
   },
   {
     title: "Smart Lock & Face Recognition",
     year: "2024",
     description:
       "Real-time authentication and attendance system using YOLOv8 for detection and InsightFace for recognition.",
-    tags: ["YOLOv8", "InsightFace", "OpenCV"],
+    tags: ["YOLOv8", "InsightFace"],
     link: "https://github.com/sanket801036",
     featured: false,
   },
@@ -458,19 +465,21 @@ export const projects: Project[] = [
     year: "2024",
     description:
       "PaddleOCR and fine-tuned LayoutLMv3 pipeline that turns multilingual menu images into structured data at 95%+ accuracy.",
-    tags: ["PaddleOCR", "LayoutLMv3", "Flask"],
+    tags: ["PaddleOCR", "LayoutLMv3"],
     link: "https://github.com/sanket801036/menu_card_data_extractor",
     featured: false,
+    metrics: [{ value: "95%+", label: "Extraction accuracy" }],
   },
   {
     title: "Image-RAG Cloth Similarity Search",
     year: "2026",
     description:
-      "Visual retrieval for fashion catalogues — CV embeddings indexed in FAISS/Pinecone and served through Flask APIs.",
-    tags: ["Computer Vision", "FAISS", "Pinecone", "Flask"],
+      "Matches a phone photo of a garment to its catalog SKU: background removal, CLIP embeddings, FAISS top-300 retrieval and colour re-ranking. A nightly auto-indexing job rebuilds the index and keeps the last 2 versions for rollback.",
+    tags: ["OpenCLIP (ViT-H-14)", "FAISS", "OpenCV", "rembg", "Flask", "PostgreSQL"],
     link: "https://github.com/sanket801036",
     featured: false,
     screenshots: [1, 2, 3, 4].map((n) => `projects/cloth-search/${n}.webp`),
+    metrics: [{ value: "Top 300", label: "FAISS candidates re-ranked" }, { value: "Nightly", label: "Re-index, 2 versions kept" }],
   },
   {
     title: "Flipkart Merger Pro",
@@ -487,10 +496,11 @@ export const projects: Project[] = [
     year: "2026",
     description:
       "React Native (Expo) app for real-time fabric dispatch verification, backed by a Flask REST API. Warehouse staff scan lot QR codes against a vendor's purchase order to receive material, or scan returns back to the vendor; a web dashboard shows verified and rejected scans, returns and app users.",
-    tags: ["React Native", "Expo", "REST API", "Flask"],
+    tags: ["React Native (Expo)", "Flask", "PostgreSQL", "Odoo XML-RPC", "Nginx"],
     link: "https://github.com/sanket801036",
     featured: false,
     screenshots: [1, 2, 3, 4, 5, 6, 7, 8].map((n) => `projects/fabric-dispatch/${n}.webp`),
+    metrics: [{ value: "3,600+", label: "Scans verified" }, { value: "179", label: "Purchase orders" }],
   },
   {
     title: "Flipkart Recommendation System",
