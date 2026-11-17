@@ -21,7 +21,7 @@ export default function Projects() {
           <Reveal key={p.title} delay={i * 0.05}>
             <div className="group border-b border-rule py-8 transition-colors hover:bg-accent-soft">
               <a
-                href={p.link}
+                href={p.link || undefined}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block"
@@ -31,10 +31,10 @@ export default function Projects() {
                   <div>
                     <h3 className="display flex items-start gap-2 text-3xl transition-colors group-hover:text-accent sm:text-4xl">
                       {p.title}
-                      <ArrowUpRight
+                      {p.link && <ArrowUpRight
                         size={20}
                         className="mt-1 shrink-0 text-ink-faint transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent"
-                      />
+                      />}
                     </h3>
                     <p className="mt-3 max-w-2xl leading-relaxed text-ink-muted">{p.description}</p>
 
@@ -113,7 +113,7 @@ export default function Projects() {
           <Reveal key={p.title} delay={i * 0.04}>
             <div className="flex h-full flex-col bg-paper transition-colors hover:bg-accent-soft">
               <a
-                href={p.link}
+                href={p.link || undefined}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group flex flex-1 flex-col p-6"

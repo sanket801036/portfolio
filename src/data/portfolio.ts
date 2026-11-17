@@ -362,7 +362,8 @@ export type Project = {
    *  inside rather than what it is. Rendered only on featured cards. */
   highlights?: string[];
   tags: string[];
-  link: string;
+  /** Omit for private company code; the card then renders without a link. */
+  link?: string;
   featured: boolean;
   demoUrl?: string;
   demoCredentials?: DemoCredential[];
@@ -373,6 +374,22 @@ export type Project = {
 };
 
 export const projects: Project[] = [
+  {
+    title: "Leemboodi Chatbot",
+    year: "2026",
+    description:
+      "Governed RAG assistant for Leemboodi staff that answers questions over the company’s own data — Odoo ERP and financial filing reports, product catalog, orders and internal policies — and cites the source behind every claim. Used by around 500 employees and hosted on the company’s own Linux server (LEEMS NAS), reachable only inside the company network.",
+    highlights: [
+      "Built as a LangGraph plan → retrieve → answer → verify loop. The verify step is a hard citation gate: an answer that is not backed by a retrieved source is replaced with a refusal, so the assistant never guesses about orders, numbers or policy.",
+      "Backends swap by config behind clean interfaces — local Chroma or a managed vector index for retrieval, Groq (Llama) called directly or through a gateway with guardrails — so no raw API key sits in the app.",
+      "A golden question set, including off-corpus questions that must be refused, is run as an evaluation gate before every prompt or retrieval change ships.",
+      "Ingestion pulls Odoo reports, catalog, order and policy documents into chunks with source metadata, so each answer links back to the exact report or document it came from.",
+      "Private, on-premise deployment: runs on the company Linux server inside the office network, with secrets kept out of the code.",
+    ],
+    tags: ["Python", "LangGraph", "RAG", "Chroma", "Groq (Llama)", "Odoo", "Streamlit", "Linux", "GitHub Actions"],
+    featured: true,
+    metrics: [{ value: "~500", label: "Internal users" }, { value: "4-step", label: "Plan → verify loop" }, { value: "0", label: "Uncited answers shipped" }],
+  },
   {
     title: "College ERP Portal",
     year: "2026",
